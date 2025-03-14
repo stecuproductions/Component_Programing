@@ -1,0 +1,42 @@
+# Ignorowanie plików binarnych i kompilowanych
+*.class
+*.jar
+*.war
+*.ear
+
+# Ignorowanie katalogów budowania (Maven, Gradle, IntelliJ, Eclipse, NetBeans)
+target/
+out/
+build/
+bin/
+dist/
+
+# Ignorowanie plików systemowych
+.DS_Store
+Thumbs.db
+*.log
+
+# Ignorowanie ustawień narzędzi IDE (NetBeans, IntelliJ, Eclipse)
+.nb-gradle/
+.nbproject/private/
+nbproject/private/
+.idea/
+*.iml
+*.ipr
+*.iws
+
+# Ignorowanie plików zależności Maven
+/.mvn/
+mvnw
+mvnw.cmd
+
+# Ignorowanie plików testowych i wyników testów
+test-output/
+surefire-reports/
+jacoco.exec
+
+# Ignorowanie plików tymczasowych
+*.swp
+*.swo
+*.bak
+*.tmp
