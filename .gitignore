@@ -40,3 +40,4 @@ jacoco.exec
 *.swo
 *.bak
 *.tmp
+/project1/nbproject/
