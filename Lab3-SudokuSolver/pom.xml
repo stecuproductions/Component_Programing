@@ -164,7 +164,10 @@
         <email>250357@edu.p.lodz.pl</email>
     </developer>
     <developer>
+        <id>250353</id>
         <name>Julia Rogalska</name>
+        <email>250353@edu.p.lodz.pl</email>
+
     </developer>
 </developers>
 <description>Project for laboratory group WW_WED_0830_06</description>
