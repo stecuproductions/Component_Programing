@@ -159,7 +159,9 @@
 </reporting>
 <developers>
     <developer>
+        <id>250357</id>
         <name>Jakub Stec</name>
+        <email>250357@edu.p.lodz.pl</email>
     </developer>
     <developer>
         <name>Julia Rogalska</name>
@@ -167,5 +169,3 @@
 </developers>
 <description>Project for laboratory group WW_WED_0830_06</description>
 </project>
-
-

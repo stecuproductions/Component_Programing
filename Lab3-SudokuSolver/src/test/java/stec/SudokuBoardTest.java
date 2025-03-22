@@ -6,8 +6,10 @@ package stec;
 
 import java.util.HashSet;
 import java.util.Set;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
 
 /**
  *
@@ -125,10 +127,25 @@ public class SudokuBoardTest {
         }
         assertTrue(different);
     }
+    
+    @Test
+    void testDrawSudoku() {
+        SudokuBoard board = new SudokuBoard(new BacktrackingSudokuSolver());
 
-    // TODO add test methods here.
-    // The methods must be annotated with annotation @Test. For example:
-    //
-    // @Test
-    // public void hello() {}
+        board.setNum(0, 0, 5);  
+
+        String output = board.drawSudoku();
+
+        assertTrue(output.startsWith("5 "));
+
+        long newlineCount = output.chars().filter(c -> c == '\n').count();
+        assertEquals(9, newlineCount);
+    }
+    @Test 
+    void mainMethodRunning(){
+        App.main(new String[]{});
+        assertEquals(1, 1);
+    }
+
+
 }
