@@ -143,8 +143,9 @@ public class SudokuBoardTest {
     }
     @Test 
     void mainMethodRunning(){
+        App myApp=new App();
+        
         App.main(new String[]{});
-        assertEquals(1, 1);
     }
 
 
