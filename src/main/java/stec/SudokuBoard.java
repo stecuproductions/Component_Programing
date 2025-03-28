@@ -1,14 +1,50 @@
-package stec;
-
+package  stec;
 
 public class SudokuBoard {
     private static final int SIZE = 9; // Rozmiar planszy
-    private int[][] board;
-    private SudokuSolver sudokuSolver;
-
+    private SudokuField[][] board; 
+    private SudokuRow[] rows;
+    private SudokuColumn[] columns;
+    private SudokuBox[] boxes;
+    private final SudokuSolver sudokuSolver;
     public SudokuBoard(SudokuSolver solver) {
-        board = new int[SIZE][SIZE]; // Inicjalizacja tablicy 9x9
+        this.board = new SudokuField[9][9];
+        this.rows = new SudokuRow[9];
+        this.columns = new SudokuColumn[9];
+        this.boxes = new SudokuBox[9];
         this.sudokuSolver = solver;
+        //Fields initialization
+        for (int i=0; i<9; i++){
+            for(int j=0; j<9; j++){
+                board[i][j]=new SudokuField(0);
+            }
+        }
+        
+        //inicjalizacja sudoku components
+
+        for (int i = 0; i < 9; i++) {
+            SudokuField[] rowFields = new SudokuField[9];
+            SudokuField[] colFields = new SudokuField[9];
+            for (int j = 0; j < 9; j++) {
+                rowFields[j] = board[i][j];
+                colFields[j] = board[j][i];
+            }
+            rows[i] = new SudokuRow(rowFields);
+            columns[i] = new SudokuColumn(colFields);
+        }
+
+        int index=0;
+        for (int row = 0; row < 3; row++) {
+            for (int col = 0; col < 3; col++) {
+                SudokuField[] boxFields = new SudokuField[9];
+                for (int i = 0; i < 3; i++) {
+                    for (int j = 0; j < 3; j++) {
+                        boxFields[i * 3 + j] = board[row * 3 + i][col * 3 + j];
+                    }
+                }
+                boxes[index++] = new SudokuBox(boxFields);
+            }
+        }
     }
     
     public void solveGame() {
@@ -17,59 +53,38 @@ public class SudokuBoard {
 
     public String drawSudoku() {
         String result = "";
-        for (int row = 0; row < SIZE; row++) {
-            for (int col = 0; col < SIZE; col++) {
-                result += board[row][col] + " ";
+        for (int row = 0; row < 9; row++) {
+            for (int col = 0; col < 9; col++) {
+                result += board[row][col].getFieldValue() + " ";
             }
             result += "\n";
         }
         return result;
-    }
+    }  
 
-    public int getNum(int row, int col) {
-        return board[row][col];
+    public SudokuRow getRow(int y){
+        return rows[y];
     }
-
-    public int getSize() {
-        return SIZE;
+    public SudokuColumn getColumn(int x){
+        return columns[x];
     }
-    
-    public void setNum(int row, int col, int val) {
-        board[row][col] = val;
+    public SudokuBox getBox(int x, int y){
+        int boxIndex = (y / 3) * 3 + (x / 3);
+        return boxes[boxIndex];
     }
-
-    public boolean isValid(int row, int col, int num) {
-        return isRowValid(row, num) && isColValid(col, num) && isBoxValid(row, col, num);
+    public void set(int row, int col, int value) {
+        board[row][col].setFieldValue(value);
     }
-
-    public boolean isRowValid(int row, int num) {
-        for (int i = 0; i < SIZE; i++) {
-            if (board[row][i] == num) {
+    public int get(int row, int col) {
+        return board[row][col].getFieldValue();
+    }
+    private boolean checkBoard(){
+        for (int i = 0; i < 9; i++) {
+            if (!rows[i].verify() || !columns[i].verify() || !boxes[i].verify()) {
                 return false;
             }
         }
         return true;
     }
-
-    public boolean isColValid(int col, int num) {
-        for (int i = 0; i < SIZE; i++) {
-            if (board[i][col] == num) {
-                return false;
-            }
-        }
-        return true;
-    }
-
-    public boolean isBoxValid(int row, int col, int num) {
-        int boxRow = (row / 3) * 3;
-        int boxCol = (col / 3) * 3;
-        for (int i = 0; i < 3; i++) {
-            for (int j = 0; j < 3; j++) {
-                if (board[boxRow + i][boxCol + j] == num) { 
-                    return false; 
-                }
-            }
-        }
-        return true;
-    }
+ 
 }

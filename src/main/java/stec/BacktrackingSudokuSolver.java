@@ -18,6 +18,8 @@ import java.util.Random;
  */
 public class BacktrackingSudokuSolver implements SudokuSolver {
     private boolean solved = false;
+    
+
 
     @Override
     public void solve(SudokuBoard board, int row, int col) {
@@ -25,30 +27,36 @@ public class BacktrackingSudokuSolver implements SudokuSolver {
             return;
         }
 
-        if (row == board.getSize()) {
+        if (row == 9) {
             solved = true; 
             return;
         }
 
-        int newRow = (col == board.getSize() - 1) ? row + 1 : row;
-        int newCol = (col == board.getSize() - 1) ? 0 : col + 1;
+        int newRow = (col == 8) ? row + 1 : row;
+        int newCol = (col == 8) ? 0 : col + 1;
 
 
         int[] numbers = generateRandomNumbers();
 
+
         for (int number : numbers) {
-            if (board.isValid(row, col, number)) {
-                board.setNum(row, col, number);
+            board.set(row, col, number);
+            boolean isValid = board.getRow(row).verify() && board.getColumn(col).verify() && board.getBox(col, row).verify();
+
+            if (isValid) {
                 solve(board, newRow, newCol);
 
                 if (solved) {
                     return;
                 }
-
-                board.setNum(row, col, 0);
             }
+            board.set(row, col, 0); 
         }
     }
+
+
+
+
 
     public int[] generateRandomNumbers() {
             Random random = new Random();
@@ -62,4 +70,10 @@ public class BacktrackingSudokuSolver implements SudokuSolver {
             }
             return result;
     }
+
+
+
+
+
+    
 }

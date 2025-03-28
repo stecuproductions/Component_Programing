@@ -18,11 +18,11 @@ import org.junit.jupiter.api.Test;
 public class SudokuBoardTest {
         private boolean validRows(SudokuBoard sudokuBoard) {
         Set<Integer> rowNumbers = new HashSet<>();
-        int size = sudokuBoard.getSize();
+        int size = 9;
         int[][] board = new int[size][size];
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
-                board[i][j] = sudokuBoard.getNum(i, j);
+                board[i][j] = sudokuBoard.get(j, j);
             }
         }
         for (int row = 0; row < size; row++) {
@@ -43,11 +43,11 @@ public class SudokuBoardTest {
 
     private Boolean validCols(SudokuBoard sudokuBoard) {
         Set<Integer> colNumbers = new HashSet<>();
-        int size = sudokuBoard.getSize();
+        int size = 9;
         int[][] board = new int[size][size];
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
-                board[i][j] = sudokuBoard.getNum(i, j);
+                board[i][j] = sudokuBoard.get(i, j);
             }
         }
         for (int col = 0; col < size; col++) {
@@ -67,11 +67,11 @@ public class SudokuBoardTest {
     }
 
     private Boolean validSquares(SudokuBoard sudokuBoard) {
-        int size = sudokuBoard.getSize();
+        int size = 9;
         int[][] board = new int[size][size];
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
-                board[i][j] = sudokuBoard.getNum(i, j);
+                board[i][j] = sudokuBoard.get(i, j);
             }
         }
         for (int rowStart = 0; rowStart < size; rowStart += 3) {
@@ -116,9 +116,9 @@ public class SudokuBoardTest {
         board1.solveGame();
         board2.solveGame();
         boolean different = false;
-        for (int i = 0; i < board1.getSize(); i++) {
-            for (int j = 0; j < board1.getSize(); j++) {
-                if (board1.getNum(i, j) != board2.getNum(i, j)) {
+        for (int i = 0; i < 9; i++) {
+            for (int j = 0; j < 9; j++) {
+                if (board1.get(i, j) != board2.get(i, j)) {
                     different = true;
                     break;
                 }
@@ -132,7 +132,7 @@ public class SudokuBoardTest {
     void testDrawSudoku() {
         SudokuBoard board = new SudokuBoard(new BacktrackingSudokuSolver());
 
-        board.setNum(0, 0, 5);  
+        board.set(0, 0, 5);  
 
         String output = board.drawSudoku();
 
@@ -145,7 +145,6 @@ public class SudokuBoardTest {
     void mainMethodRunning(){
         App myApp=new App();
         
-        App.main(new String[]{});
     }
 
 

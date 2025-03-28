@@ -1,0 +1,41 @@
+package stec;
+import java.beans.PropertyChangeListener;
+
+public abstract  class SudokuComponent implements PropertyChangeListener {
+    protected SudokuField[] sudokuFields;
+    public SudokuComponent(SudokuField[] fields) {
+        this.sudokuFields = fields;
+        for (SudokuField field: fields){
+            field.addPropertyChangeListener(this);
+        }
+    }
+    
+    public boolean verify() {
+        boolean[] seen = new boolean[10];
+        int val;
+        for (int i=0; i<9; i++){
+            val=sudokuFields[i].getFieldValue();
+            if(val ==0){
+                continue;
+            }
+            if(seen[val]==true){
+                return false;
+            }
+            seen[val]=true;
+        
+        }
+        return true;
+    }
+    
+    @Override
+    public void propertyChange(java.beans.PropertyChangeEvent evt) {
+        if (evt.getPropertyName().equals("value")) {
+            int newValue = (int) evt.getNewValue();
+            int oldValue = (int) evt.getOldValue();
+            boolean isValid = verify();
+            String validationMessage = (isValid ? "Does not violate " : "Violates ") + this.getClass().getSimpleName() + " rules";
+            System.out.println("Field value changed! Old value:  " + oldValue + ". New value: " + newValue + ". Value " + validationMessage);
+        }
+
+    }
+}
