@@ -1,0 +1,9 @@
+GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_COVERED,LINE_MISSED,LINE_COVERED,COMPLEXITY_MISSED,COMPLEXITY_COVERED,METHOD_MISSED,METHOD_COVERED
+Sudoku algorithm,stec,SudokuRow,0,4,0,0,0,2,0,1,0,1
+Sudoku algorithm,stec,SudokuBox,0,4,0,0,0,2,0,1,0,1
+Sudoku algorithm,stec,SudokuBoard,0,273,0,28,0,45,0,23,0,9
+Sudoku algorithm,stec,BacktrackingSudokuSolver,0,190,0,22,0,29,0,14,0,3
+Sudoku algorithm,stec,SudokuComponent,0,93,0,10,0,23,0,8,0,3
+Sudoku algorithm,stec,App,0,19,0,0,0,6,0,2,0,2
+Sudoku algorithm,stec,SudokuColumn,0,4,0,0,0,2,0,1,0,1
+Sudoku algorithm,stec,SudokuField,0,35,0,0,0,12,0,4,0,4

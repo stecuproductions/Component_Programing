@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang=""><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>SudokuField.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Sudoku algorithm</a> &gt; <a href="index.source.html" class="el_package">stec</a> &gt; <span class="el_source">SudokuField.java</span></div><h1>SudokuField.java</h1><pre class="source lang-java linenums">
+package stec;
+
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
+
+public class SudokuField {
+    private final PropertyChangeSupport support;
+    private  int value;
+    
+<span class="fc" id="L11">    public SudokuField(int value) {</span>
+<span class="fc" id="L12">        this.value = value;</span>
+<span class="fc" id="L13">        this.support = new PropertyChangeSupport(this);</span>
+<span class="fc" id="L14">    }   </span>
+    
+    public int getFieldValue() {
+<span class="fc" id="L17">        return value;</span>
+    }
+    
+    public void setFieldValue(int value) {
+<span class="fc" id="L21">        int oldVal = this.getFieldValue();</span>
+<span class="fc" id="L22">        int newVal = value;</span>
+<span class="fc" id="L23">        this.value = newVal;</span>
+<span class="fc" id="L24">        support.firePropertyChange(&quot;value&quot;, oldVal, newVal);   </span>
+<span class="fc" id="L25">    }</span>
+
+    public void addPropertyChangeListener(PropertyChangeListener listener) {
+<span class="fc" id="L28">        support.addPropertyChangeListener(listener);</span>
+<span class="fc" id="L29">    }</span>
+
+    // Might be needed in the future
+    // public void removePropertyChangeListener(PropertyChangeListener listener) {
+    //     support.removePropertyChangeListener(listener);
+    // }
+    
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

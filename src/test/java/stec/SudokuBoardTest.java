@@ -4,9 +4,6 @@
  */
 package stec;
 
-import java.util.HashSet;
-import java.util.Set;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.Test;
@@ -15,98 +12,45 @@ import org.junit.jupiter.api.Test;
  *
  * @author jroga
  */
-public class SudokuBoardTest {
-        private boolean validRows(SudokuBoard sudokuBoard) {
-        Set<Integer> rowNumbers = new HashSet<>();
-        int size = 9;
-        int[][] board = new int[size][size];
-        for (int i = 0; i < size; i++) {
-            for (int j = 0; j < size; j++) {
-                board[i][j] = sudokuBoard.get(j, j);
-            }
-        }
-        for (int row = 0; row < size; row++) {
-            for (int col = 0; col < size; col++) {
-                if (board[row][col] < 1 || board[row][col] > 9) {
-                    return false;
-                }
-                rowNumbers.add(board[row][col]);
-            }
-            if (rowNumbers.size() != 9) {
-                return false;
-            }
-            rowNumbers.clear();
-        }
+public class SudokuBoardTest {       
 
-        return true;
-    }
-
-    private Boolean validCols(SudokuBoard sudokuBoard) {
-        Set<Integer> colNumbers = new HashSet<>();
-        int size = 9;
-        int[][] board = new int[size][size];
-        for (int i = 0; i < size; i++) {
-            for (int j = 0; j < size; j++) {
-                board[i][j] = sudokuBoard.get(i, j);
-            }
-        }
-        for (int col = 0; col < size; col++) {
-            for (int row = 0; row < size; row++) {
-                if (board[row][col] < 1 || board[row][col] > 9) {
-                    return false;
-                }
-                colNumbers.add(board[row][col]);
-            }
-            if (colNumbers.size() != 9) {
-                return false;
-            }
-            colNumbers.clear();
-        }
-
-        return true;
-    }
-
-    private Boolean validSquares(SudokuBoard sudokuBoard) {
-        int size = 9;
-        int[][] board = new int[size][size];
-        for (int i = 0; i < size; i++) {
-            for (int j = 0; j < size; j++) {
-                board[i][j] = sudokuBoard.get(i, j);
-            }
-        }
-        for (int rowStart = 0; rowStart < size; rowStart += 3) {
-            for (int colStart = 0; colStart < size; colStart += 3) {
-
-                Set<Integer> squareNumbers = new HashSet<>();
-
-                for (int i = 0; i < 3; i++) {
-                    for (int j = 0; j < 3; j++) {
-                        int num = board[rowStart + i][colStart + j];
-
-                        if (num < 1 || num > 9) {
-                            return false; // Niepoprawna liczba
-                        }
-                        squareNumbers.add(num);
-                    }
-                }
-                if (squareNumbers.size() < 9) {
-                    return false;
-                }
-                squareNumbers.clear();
-            }
-        }
-        return true;
+    @Test 
+    public void testSudokuBoardCheckValidSudoku(){
+        SudokuSolver solver = new BacktrackingSudokuSolver();
+        SudokuBoard board = new SudokuBoard(solver);
+        board.solveGame();
+        assertTrue(SudokuTestsUtils.getPrivateCheckBoardMethod(board));
     }
 
     @Test
-    public void validSudokuTest() {
+    public void testSudokuCheckBoard() {
         SudokuSolver solver = new BacktrackingSudokuSolver();
-        SudokuBoard sudokuBoard = new SudokuBoard(solver);
-        sudokuBoard.solveGame();
-
-        boolean testResult = validCols(sudokuBoard) && validRows(sudokuBoard) && validSquares(sudokuBoard);
-        assertTrue(testResult); // Test passed Valid sudoku
+        SudokuBoard board = new SudokuBoard(solver);
+        //invalid row
+        board.set(0, 0, 1);
+        board.set(0, 1, 1);
+        assertTrue(!SudokuTestsUtils.getPrivateCheckBoardMethod(board));
+        board.set(0, 1, 0); //reset to 0
+        board.set(0, 1, 0); //reset to 0
+        //invalid column
+        board.set(0, 0, 1);
+        board.set(1, 0, 1);
+        assertTrue(!SudokuTestsUtils.getPrivateCheckBoardMethod(board));
+        board.set(1, 0, 0); //reset to 0
+        board.set(0, 0, 0); //reset to 0
+        //invalid box
+        board.set(0, 0, 1);
+        board.set(1, 1, 1);
+        assertTrue(!SudokuTestsUtils.getPrivateCheckBoardMethod(board));
+        board.set(1, 1, 0); //reset to 0
+        board.set(0, 0, 0); //reset to 0
+        //valid board
+        board.solveGame();
+        assertTrue(SudokuTestsUtils.getPrivateCheckBoardMethod(board));
+        
     }
+
+
 
     @Test
     public void diffrentBoardsTest() {
@@ -141,11 +85,12 @@ public class SudokuBoardTest {
         long newlineCount = output.chars().filter(c -> c == '\n').count();
         assertEquals(9, newlineCount);
     }
+
     @Test 
     void mainMethodRunning(){
         App myApp=new App();
+        myApp.main(null);
+
         
     }
-
-
 }

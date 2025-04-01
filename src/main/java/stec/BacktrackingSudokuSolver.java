@@ -41,7 +41,8 @@ public class BacktrackingSudokuSolver implements SudokuSolver {
 
         for (int number : numbers) {
             board.set(row, col, number);
-            boolean isValid = board.getRow(row).verify() && board.getColumn(col).verify() && board.getBox(col, row).verify();
+            boolean isValid = 
+            board.getRow(row).verify() && board.getColumn(col).verify() && board.getBox(col, row).verify();
 
             if (isValid) {
                 solve(board, newRow, newCol);

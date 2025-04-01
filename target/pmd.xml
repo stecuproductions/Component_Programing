@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pmd xmlns="http://pmd.sourceforge.net/report/2.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pmd.sourceforge.net/report/2.0.0 https://pmd.github.io/schema/report_2_0_0.xsd" version="7.7.0" timestamp="2025-03-30T13:47:53.118">
+<file name="C:\Users\stecu\OneDrive\Pulpit\Notatki\Semestr 4\CP\Repo\src\main\java\stec\SudokuBoard.java">
+<violation beginline="73" endline="73" begincolumn="24" endcolumn="31" rule="UselessParentheses" ruleset="Code Style" package="stec" class="SudokuBoard" method="getBox" variable="boxIndex" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.7.0/pmd_rules_java_codestyle.html#uselessparentheses" priority="4">
+Useless parentheses.
+</violation>
+<violation beginline="85" endline="85" begincolumn="21" endcolumn="31" rule="UnusedPrivateMethod" ruleset="Best Practices" package="stec" class="SudokuBoard" method="checkBoard" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.7.0/pmd_rules_java_bestpractices.html#unusedprivatemethod" priority="3">
+Avoid unused private methods such as 'checkBoard()'.
+</violation>
+</file>
+</pmd>

@@ -5,7 +5,13 @@
 *.ear
 
 # Ignorowanie katalogów budowania (Maven, Gradle, IntelliJ, Eclipse, NetBeans)
-target/
+classes/
+generated-sources/
+generated-test-sources/
+maven-status/
+pmd/
+surefire-reports/
+test-classes/
 out/
 build/
 bin/

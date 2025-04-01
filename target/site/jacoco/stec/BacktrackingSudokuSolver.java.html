@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang=""><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>BacktrackingSudokuSolver.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Sudoku algorithm</a> &gt; <a href="index.source.html" class="el_package">stec</a> &gt; <span class="el_source">BacktrackingSudokuSolver.java</span></div><h1>BacktrackingSudokuSolver.java</h1><pre class="source lang-java linenums">/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+
+package stec;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+
+/**
+ * Backtracking algorithm to solve sudoku.
+ * Improved time complexity of the algorithm.
+ * 
+ * @author jroga
+ * @author jstec
+ */
+<span class="fc" id="L19">public class BacktrackingSudokuSolver implements SudokuSolver {</span>
+<span class="fc" id="L20">    private boolean solved = false;</span>
+    
+
+
+    @Override
+    public void solve(SudokuBoard board, int row, int col) {
+<span class="fc bfc" id="L26" title="All 2 branches covered.">        if (solved) {</span>
+<span class="fc" id="L27">            return;</span>
+        }
+
+<span class="fc bfc" id="L30" title="All 2 branches covered.">        if (row == 9) {</span>
+<span class="fc" id="L31">            solved = true; </span>
+<span class="fc" id="L32">            return;</span>
+        }
+
+<span class="fc bfc" id="L35" title="All 2 branches covered.">        int newRow = (col == 8) ? row + 1 : row;</span>
+<span class="fc bfc" id="L36" title="All 2 branches covered.">        int newCol = (col == 8) ? 0 : col + 1;</span>
+
+
+<span class="fc" id="L39">        int[] numbers = generateRandomNumbers();</span>
+
+
+<span class="fc bfc" id="L42" title="All 2 branches covered.">        for (int number : numbers) {</span>
+<span class="fc" id="L43">            board.set(row, col, number);</span>
+<span class="fc" id="L44">            boolean isValid = </span>
+<span class="fc bfc" id="L45" title="All 6 branches covered.">            board.getRow(row).verify() &amp;&amp; board.getColumn(col).verify() &amp;&amp; board.getBox(col, row).verify();</span>
+
+<span class="fc bfc" id="L47" title="All 2 branches covered.">            if (isValid) {</span>
+<span class="fc" id="L48">                solve(board, newRow, newCol);</span>
+
+<span class="fc bfc" id="L50" title="All 2 branches covered.">                if (solved) {</span>
+<span class="fc" id="L51">                    return;</span>
+                }
+            }
+<span class="fc" id="L54">            board.set(row, col, 0); </span>
+        }
+<span class="fc" id="L56">    }</span>
+
+
+
+
+
+    public int[] generateRandomNumbers() {
+<span class="fc" id="L63">            Random random = new Random();</span>
+<span class="fc" id="L64">            int size = 9;</span>
+<span class="fc" id="L65">            List&lt;Integer&gt; sudokuNumbers = new ArrayList&lt;&gt;(List.of(1, 2, 3, 4, 5, 6, 7, 8, 9));</span>
+<span class="fc" id="L66">            int[] result = { 0, 0, 0, 0, 0, 0, 0, 0, 0 };</span>
+<span class="fc bfc" id="L67" title="All 2 branches covered.">            for (int iterator = 0; iterator &lt; size; iterator++) {</span>
+<span class="fc" id="L68">                int randomIndex = random.nextInt(sudokuNumbers.size());</span>
+<span class="fc" id="L69">                result[iterator] = sudokuNumbers.get(randomIndex);</span>
+<span class="fc" id="L70">                sudokuNumbers.remove(randomIndex);</span>
+            }
+<span class="fc" id="L72">            return result;</span>
+    }
+
+
+
+
+
+    
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>
