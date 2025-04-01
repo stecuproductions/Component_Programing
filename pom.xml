@@ -5,10 +5,10 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>stec</groupId>
-  <artifactId>Sudoku</artifactId>
+  <artifactId>lab2</artifactId>
   <version>1.0-SNAPSHOT</version>
   <packaging>jar</packaging>
-  <name>Sudoku algorithm</name>
+  <name>lab2</name>
 
 <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -44,7 +44,7 @@
        <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-checkstyle-plugin</artifactId>
-        <version>3.3.1</version>
+        <version>3.6.0</version>
         <configuration>
             <configLocation>checkstyle2023.xml</configLocation>
             <consoleOutput>true</consoleOutput>
@@ -64,14 +64,14 @@
             <dependency>
                 <groupId>com.puppycrawl.tools</groupId>
                 <artifactId>checkstyle</artifactId>
-                <version>10.8.0</version>
+                <version>10.21.4</version>
             </dependency>
         </dependencies>
     </plugin>
     <plugin>
         <groupId>org.jacoco</groupId>
         <artifactId>jacoco-maven-plugin</artifactId>
-        <version>0.8.11</version>
+        <version>0.8.12</version>
         <executions>
             <execution>
                 <id>default-prepare-agent</id>
@@ -115,12 +115,12 @@
         <plugin>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-project-info-reports-plugin</artifactId>
-            <version>3.5.0</version>
+            <version>3.9.0</version>
         </plugin>
         <plugin>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-checkstyle-plugin</artifactId>
-            <version>3.3.1</version>
+            <version>3.6.0</version>
             <configuration>
                 <configLocation>checkstyle2023.xml</configLocation>
                 <consoleOutput>true</consoleOutput>
@@ -137,6 +137,8 @@
         <plugin>
             <groupId>org.jacoco</groupId>
             <artifactId>jacoco-maven-plugin</artifactId>
+            <version>0.8.12</version>
+
             <reportSets>
                 <reportSet>
                     <reports>
