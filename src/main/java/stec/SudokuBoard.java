@@ -81,15 +81,5 @@ public class SudokuBoard {
     public int get(int row, int col) {
         return board[row][col].getFieldValue();
     }
-
-    private boolean checkBoard() {
-        for (int i = 0; i < 9; i++) {
-            if (!rows[i].verify() || !columns[i].verify() || !boxes[i].verify()) {
-                return false;
-            }
-
-        }
-        return true;
-    }
  
 }
