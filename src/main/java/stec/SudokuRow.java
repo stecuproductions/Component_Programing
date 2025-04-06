@@ -1,8 +1,10 @@
 package stec;
 
+import java.util.List;
+
 public class SudokuRow extends  SudokuComponent {
     
-    public SudokuRow(SudokuField[] fields) {
+    public SudokuRow(List<SudokuField> fields) {
         super(fields);
     }
 }

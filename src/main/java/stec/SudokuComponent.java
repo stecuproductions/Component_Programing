@@ -1,12 +1,13 @@
 package stec;
 
 import java.beans.PropertyChangeListener;
+import java.util.List;
 
 public abstract  class SudokuComponent implements PropertyChangeListener {
-    protected SudokuField[] sudokuFields;
+    protected List<SudokuField> sudokuFields;
     public boolean notified = false;
 
-    public SudokuComponent(SudokuField[] fields) {
+    public SudokuComponent(List<SudokuField> fields) {
         this.sudokuFields = fields;
         for (SudokuField field: fields) {
             field.addPropertyChangeListener(this);
@@ -17,7 +18,7 @@ public abstract  class SudokuComponent implements PropertyChangeListener {
         boolean[] seen = new boolean[10];
         int val;
         for (int i = 0; i < 9; i++) {
-            val = sudokuFields[i].getFieldValue();
+            val = sudokuFields.get(i).getFieldValue();
             if (val == 0) {
                 continue;
             }

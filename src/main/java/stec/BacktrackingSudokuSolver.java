@@ -6,8 +6,8 @@
 package stec;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
-import java.util.Random;
 
 /**
  * Backtracking algorithm to solve sudoku.
@@ -36,7 +36,7 @@ public class BacktrackingSudokuSolver implements SudokuSolver {
         int newCol = (col == 8) ? 0 : col + 1;
 
 
-        int[] numbers = generateRandomNumbers();
+        List<Integer> numbers = generateRandomNumbers();
 
 
         for (int number : numbers) {
@@ -56,22 +56,14 @@ public class BacktrackingSudokuSolver implements SudokuSolver {
     }
 
 
-
-
-
-    public int[] generateRandomNumbers() {
-            Random random = new Random();
-            int size = 9;
-            List<Integer> sudokuNumbers = new ArrayList<>(List.of(1, 2, 3, 4, 5, 6, 7, 8, 9));
-            int[] result = { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
-            for (int iterator = 0; iterator < size; iterator++) {
-                int randomIndex = random.nextInt(sudokuNumbers.size());
-                result[iterator] = sudokuNumbers.get(randomIndex);
-                sudokuNumbers.remove(randomIndex);
-            }
-            return result;
+    public List<Integer> generateRandomNumbers() {
+       List<Integer> result = new ArrayList<>(9);
+       for (int i = 1; i <= 9; i++) {
+           result.add(i);
+       }
+       Collections.shuffle(result);
+       return result;
     }
-
 
 
 
