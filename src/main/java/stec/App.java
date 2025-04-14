@@ -10,5 +10,6 @@ public class App {
         SudokuBoard board = new SudokuBoard(solver);
         board.solveGame();
         System.out.println(board.drawSudoku());
-    }
+        
+    }   
 }

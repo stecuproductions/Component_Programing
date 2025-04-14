@@ -3,7 +3,7 @@ package  stec;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SudokuBoard {
+public class SudokuBoard extends BaseModel {
     private SudokuField[][] board; 
     private List<SudokuRow> rows;
     private List<SudokuColumn> columns;
@@ -93,4 +93,5 @@ public class SudokuBoard {
         }
         return true;
     }
+    
 }

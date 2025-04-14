@@ -4,7 +4,7 @@ package stec;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
-public class SudokuField {
+public class SudokuField extends BaseModel {
     private final PropertyChangeSupport support;
     private  int value;
     

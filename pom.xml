@@ -22,6 +22,11 @@
       <version>5.10.3</version>
       <scope>test</scope>
     </dependency>
+    <dependency>
+        <groupId>org.apache.commons</groupId>
+        <artifactId>commons-lang3</artifactId>
+        <version>3.17.0</version>
+    </dependency>
   </dependencies>
 
   <build>
@@ -107,6 +112,7 @@
             </execution>
         </executions>
     </plugin>
+    
     </plugins>
   </build>
 
