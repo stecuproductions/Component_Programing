@@ -27,6 +27,16 @@
         <artifactId>commons-lang3</artifactId>
         <version>3.17.0</version>
     </dependency>
+        <dependency>
+        <groupId>org.openjfx</groupId>
+        <artifactId>javafx-controls</artifactId>
+        <version>24.0.1</version>
+    </dependency>
+    <dependency>
+        <groupId>org.openjfx</groupId>
+        <artifactId>javafx-fxml</artifactId>
+        <version>24.0.1</version>
+    </dependency>
   </dependencies>
 
   <build>
@@ -51,7 +61,7 @@
         <artifactId>maven-checkstyle-plugin</artifactId>
         <version>3.6.0</version>
         <configuration>
-            <configLocation>checkstyle2023.xml</configLocation>
+            <configLocation>checkstyle2025.xml</configLocation>
             <consoleOutput>true</consoleOutput>
             <failsOnError>true</failsOnError>
             <linkXRef>false</linkXRef>
@@ -112,7 +122,22 @@
             </execution>
         </executions>
     </plugin>
-    
+     <plugin>
+            <groupId>org.codehaus.mojo</groupId>
+            <artifactId>exec-maven-plugin</artifactId>
+            <version>3.5.0</version>
+            <executions>
+                <execution>
+                    <goals>
+                        <goal>java</goal>
+                    </goals>
+                    <configuration>
+                        <mainClass>stec.App</mainClass>
+                        <classpathScope>compile</classpathScope>
+                    </configuration>
+                </execution>
+            </executions>
+      </plugin>
     </plugins>
   </build>
 
@@ -128,7 +153,7 @@
             <artifactId>maven-checkstyle-plugin</artifactId>
             <version>3.6.0</version>
             <configuration>
-                <configLocation>checkstyle2023.xml</configLocation>
+                <configLocation>checkstyle2025.xml</configLocation>
                 <consoleOutput>true</consoleOutput>
                 <linkXRef>false</linkXRef>
             </configuration>

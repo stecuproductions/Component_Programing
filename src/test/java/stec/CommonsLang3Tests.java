@@ -14,9 +14,15 @@ public class CommonsLang3Tests {
         @Test 
         public void equalsTest(){
             SudokuBoard testBoard = new SudokuBoard(solver);
+            board.solveGame();
             assertFalse(board.equals(testBoard));
             assertFalse(board.equals(null));
-            testBoard=board;
+            for (int row = 0; row < 9; row++) {
+                for (int col = 0; col < 9; col++) {
+                    int val = board.get(row, col);
+                    testBoard.set(row, col, val);
+                }
+            }
             assertTrue(board.equals(testBoard));
             
             SudokuBoard testBoard2=new SudokuBoard(solver);
@@ -30,6 +36,7 @@ public class CommonsLang3Tests {
         @Test
         public void hashCodeTest() {
             SudokuBoard testBoard = new SudokuBoard(solver);
+            board.solveGame();
             assertFalse(board.equals(testBoard));
             assertNotEquals(board.hashCode(), testBoard.hashCode());
             for (int row = 0; row < 9; row++) {
@@ -38,7 +45,7 @@ public class CommonsLang3Tests {
                     testBoard.set(row, col, val);
                 }
             }
-            //assertTrue(board.equals(testBoard));
+            assertTrue(board.equals(testBoard));
             assertEquals(board.hashCode(), testBoard.hashCode());
         }
         

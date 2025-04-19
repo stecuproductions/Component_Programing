@@ -1,9 +1,13 @@
 package  stec;
 
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+import org.apache.commons.lang3.builder.ToStringBuilder;
+
 import java.util.ArrayList;
 import java.util.List;
 
-public class SudokuBoard extends BaseModel {
+public class SudokuBoard {
     private SudokuField[][] board; 
     private List<SudokuRow> rows;
     private List<SudokuColumn> columns;
@@ -72,7 +76,7 @@ public class SudokuBoard extends BaseModel {
     }
 
     public SudokuBox getBox(int x, int y) {
-        int boxIndex = (y / 3) * 3 + (x / 3);
+        int boxIndex = y / 3 * 3 + (x / 3);
         return boxes.get(boxIndex);
     }
 
@@ -94,4 +98,18 @@ public class SudokuBoard extends BaseModel {
         return true;
     }
     
+    @Override
+    public boolean equals(Object obj) {
+        return EqualsBuilder.reflectionEquals(this, obj);
+    }
+
+    @Override
+    public int hashCode() {
+        return HashCodeBuilder.reflectionHashCode(this);
+    }
+
+    @Override
+    public String toString() {
+        return ToStringBuilder.reflectionToString(this);
+    }
 }

@@ -1,11 +1,15 @@
 
 package stec;
 
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+import org.apache.commons.lang3.builder.ToStringBuilder;
+
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
-public class SudokuField extends BaseModel {
-    private final PropertyChangeSupport support;
+public class SudokuField {
+    private final transient PropertyChangeSupport support;
     private  int value;
     
     public SudokuField(int value) {
@@ -30,7 +34,22 @@ public class SudokuField extends BaseModel {
 
     // Might be needed in the future
     // public void removePropertyChangeListener(PropertyChangeListener listener) {
-    //     support.removePropertyChangeListener(listener);
+    //      support.removePropertyChangeListener(listener);
     // }
+    
+    @Override
+    public boolean equals(Object obj) {
+        return EqualsBuilder.reflectionEquals(this, obj);
+    }
+
+    @Override
+    public int hashCode() {
+        return HashCodeBuilder.reflectionHashCode(this);
+    }
+
+    @Override
+    public String toString() {
+        return ToStringBuilder.reflectionToString(this);
+    }
     
 }

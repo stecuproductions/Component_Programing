@@ -16,7 +16,7 @@ import java.util.List;
  * @author jroga
  * @author jstec
  */
-public class BacktrackingSudokuSolver extends BaseModel implements SudokuSolver  {
+public class BacktrackingSudokuSolver implements SudokuSolver  {
     private boolean solved = false;
     
 
@@ -63,10 +63,5 @@ public class BacktrackingSudokuSolver extends BaseModel implements SudokuSolver 
        }
        Collections.shuffle(result);
        return result;
-    }
-
-
-
-
-    
+    }   
 }

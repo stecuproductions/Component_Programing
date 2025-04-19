@@ -3,7 +3,7 @@ package stec;
 import java.beans.PropertyChangeListener;
 import java.util.List;
 
-public abstract  class SudokuComponent extends BaseModel implements PropertyChangeListener {
+public abstract  class SudokuComponent implements PropertyChangeListener {
     protected List<SudokuField> sudokuFields;
     public boolean notified = false;
 
@@ -30,14 +30,12 @@ public abstract  class SudokuComponent extends BaseModel implements PropertyChan
         }
         return true;
     }
-
-    
     
     @Override
     public void propertyChange(java.beans.PropertyChangeEvent evt) {
-        int newValue = (int) evt.getNewValue();
-        int oldValue = (int) evt.getOldValue();
-        boolean isValid = verify();
+        //int newValue = (int) evt.getNewValue();
+        //int oldValue = (int) evt.getOldValue();
+        //boolean isValid = verify();
         notified = true;
         // String validationMessage = (isValid 
         //   ?  "Does not violate " : "Violates ") + this.getClass().getSimpleName() + " rules";
