@@ -3,12 +3,15 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Interface.java to edit this template
  */
 
-package stec;
+package stec.solver;
+
+import stec.model.SudokuBoard;
 
 /**
  * Interface for sudoku solver.
+ *
  * @author jroga
  */
 public interface SudokuSolver {
-    void solve(SudokuBoard board, int row, int col);
+  void solve(SudokuBoard board, int row, int col);
 }
