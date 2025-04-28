@@ -10,7 +10,7 @@ import stec.solver.SudokuSolver;
 
 
 
-public class SudokuBoard implements Serializable {
+public class SudokuBoard implements Serializable, Cloneable {
   private SudokuField[][] board;
   private List<SudokuRow> rows;
   private List<SudokuColumn> columns;
@@ -129,5 +129,27 @@ public class SudokuBoard implements Serializable {
   @Override
   public String toString() {
     return ToStringBuilder.reflectionToString(this);
+  }
+
+  @Override
+  public SudokuBoard clone() throws CloneNotSupportedException  {
+      SudokuBoard clone = (SudokuBoard) super.clone();
+      clone.board = new SudokuField[9][9];
+      for (int i = 0; i < 9; i++) {
+        for (int j = 0; j < 9; j++) {
+          clone.board[i][j] = (SudokuField) this.board[i][j].clone();
+        }
+      }
+      clone.rows = new ArrayList<>(9);
+      clone.columns = new ArrayList<>(9);
+      clone.boxes = new ArrayList<>(9);
+      for (int i = 0; i < 9; i++) {
+        clone.rows.add((SudokuRow) this.rows.get(i).clone());
+        clone.columns.add((SudokuColumn) this.columns.get(i).clone());
+        clone.boxes.add((SudokuBox) this.boxes.get(i).clone());
+      }
+      clone.sudokuSolver = null; // can be changed over time
+      return (SudokuBoard) clone;
+
   }
 }

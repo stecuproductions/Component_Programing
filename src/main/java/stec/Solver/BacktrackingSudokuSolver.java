@@ -40,9 +40,9 @@ public class BacktrackingSudokuSolver implements SudokuSolver, Serializable {
     for (int number : numbers) {
       board.set(row, col, number);
       boolean isValid =
-          board.getRow(row).verify()
-              && board.getColumn(col).verify()
-              && board.getBox(col, row).verify();
+              board.getRow(row).verify()
+                      && board.getColumn(col).verify()
+                      && board.getBox(col, row).verify();
 
       if (isValid) {
         solve(board, newRow, newCol);
@@ -63,4 +63,5 @@ public class BacktrackingSudokuSolver implements SudokuSolver, Serializable {
     Collections.shuffle(result);
     return result;
   }
+
 }

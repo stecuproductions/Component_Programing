@@ -8,8 +8,8 @@ import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
-public class SudokuField implements Serializable {
-  private final transient PropertyChangeSupport support;
+public class SudokuField implements Serializable, Comparable<SudokuField>, Cloneable {
+  private  transient PropertyChangeSupport support;
   private int value;
 
   public SudokuField(int value) {
@@ -36,6 +36,20 @@ public class SudokuField implements Serializable {
   // public void removePropertyChangeListener(PropertyChangeListener listener) {
   //      support.removePropertyChangeListener(listener);
   // }
+  @Override
+  public int compareTo(SudokuField o) {
+    if (o == null) {
+      throw new NullPointerException();
+    }
+    return this.getFieldValue() - o.getFieldValue();
+  }
+
+  @Override
+  public Object clone() throws CloneNotSupportedException {
+    Object clone = (SudokuField) super.clone();
+    ((SudokuField) clone).support = new PropertyChangeSupport(clone);
+    return clone;
+  }
 
   @Override
   public boolean equals(Object obj) {

@@ -4,7 +4,7 @@ import java.beans.PropertyChangeListener;
 import java.io.Serializable;
 import java.util.List;
 
-public abstract class SudokuComponent implements PropertyChangeListener, Serializable {
+public abstract class SudokuComponent implements PropertyChangeListener, Serializable, Cloneable {
   protected List<SudokuField> sudokuFields;
   public boolean notified = false;
 
@@ -42,5 +42,10 @@ public abstract class SudokuComponent implements PropertyChangeListener, Seriali
     // System.out.println("Field value changed! Old value:  " + oldValue
     //   + ". New value: " + newValue + ". Value " + validationMessage);
 
+  }
+
+  @Override
+  public Object clone() throws CloneNotSupportedException {
+    return super.clone();
   }
 }
