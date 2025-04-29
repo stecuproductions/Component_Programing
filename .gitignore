@@ -28,6 +28,7 @@ Thumbs.db
 .nb-gradle/
 .nbproject/private/
 nbproject/private/
+nbactions.xml
 .idea/
 *.iml
 *.ipr
