@@ -1,0 +1,367 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="stec.viewproject.GameViewController">
+   <children>
+      <AnchorPane prefHeight="403.0" prefWidth="603.0">
+         <children>
+            <GridPane alignment="CENTER" gridLinesVisible="true" layoutX="120.0" layoutY="20.0" prefHeight="362.0" prefWidth="362.0">
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+              </columnConstraints>
+              <rowConstraints>
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <TextField fx:id="c12" alignment="CENTER" onAction="#cellEdit" prefHeight="45.0" prefWidth="42.0" style="-fx-background-color: AliceBlue;" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                     <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font></TextField>
+                  <TextField fx:id="c01" alignment="CENTER" onAction="#cellEdit" prefHeight="87.0" prefWidth="42.0" style="-fx-background-color: AliceBlue;" GridPane.rowIndex="1">
+                     <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font></TextField>
+                  <TextField fx:id="c11" onAction="#cellEdit" prefHeight="52.0" prefWidth="42.0" style="-fx-background-color: AliceBlue;" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                     <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font></TextField>
+                  <TextField fx:id="c00" alignment="CENTER" onAction="#cellEdit" prefHeight="67.0" prefWidth="42.0" style="-fx-background-color: AliceBlue;">
+                     <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font></TextField>
+                  <TextField fx:id="c10" onAction="#cellEdit" prefHeight="76.0" prefWidth="42.0" style="-fx-background-color: AliceBlue;" GridPane.columnIndex="1">
+                     <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font></TextField>
+                  <TextField fx:id="c02" onAction="#cellEdit" prefHeight="52.0" prefWidth="42.0" style="-fx-background-color: AliceBlue;" GridPane.rowIndex="2">
+                     <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font></TextField>
+                  <TextField fx:id="c03" onAction="#cellEdit" prefHeight="66.0" prefWidth="42.0" GridPane.rowIndex="3">
+                     <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font></TextField>
+                  <TextField fx:id="c13" onAction="#cellEdit" prefHeight="47.0" prefWidth="42.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                     <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font></TextField>
+                  <TextField fx:id="c04" onAction="#cellEdit" prefHeight="47.0" prefWidth="42.0" GridPane.rowIndex="4">
+                     <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font></TextField>
+                  <TextField fx:id="c14" onAction="#cellEdit" prefHeight="51.0" prefWidth="42.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
+                     <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font></TextField>
+                  <TextField fx:id="c05" onAction="#cellEdit" prefHeight="46.0" prefWidth="42.0" GridPane.rowIndex="5">
+                     <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font></TextField>
+                  <TextField fx:id="c15" onAction="#cellEdit" prefHeight="71.0" prefWidth="42.0" GridPane.columnIndex="1" GridPane.rowIndex="5">
+                     <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font></TextField>
+                  <TextField fx:id="c06" onAction="#cellEdit" prefHeight="50.0" prefWidth="42.0" style="-fx-background-color: AliceBlue;" GridPane.rowIndex="6">
+                     <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font></TextField>
+                  <TextField fx:id="c16" onAction="#cellEdit" prefHeight="46.0" prefWidth="42.0" style="-fx-background-color: AliceBlue;" GridPane.columnIndex="1" GridPane.rowIndex="6">
+                     <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font></TextField>
+                  <TextField fx:id="c07" onAction="#cellEdit" prefHeight="52.0" prefWidth="42.0" style="-fx-background-color: AliceBlue;" GridPane.rowIndex="7">
+                     <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font></TextField>
+                  <TextField fx:id="c17" onAction="#cellEdit" prefHeight="46.0" prefWidth="42.0" style="-fx-background-color: AliceBlue;" GridPane.columnIndex="1" GridPane.rowIndex="7">
+                     <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font></TextField>
+                  <TextField fx:id="c08" onAction="#cellEdit" prefHeight="46.0" prefWidth="42.0" style="-fx-background-color: AliceBlue;" GridPane.rowIndex="8">
+                     <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font></TextField>
+                  <TextField fx:id="c18" onAction="#cellEdit" prefHeight="46.0" prefWidth="42.0" style="-fx-background-color: AliceBlue;" GridPane.columnIndex="1" GridPane.rowIndex="8">
+                     <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font></TextField>
+                  <TextField fx:id="c20" onAction="#cellEdit" prefHeight="46.0" prefWidth="42.0" style="-fx-background-color: AliceBlue;" GridPane.columnIndex="2">
+                     <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font></TextField>
+                  <TextField fx:id="c21" onAction="#cellEdit" prefHeight="46.0" prefWidth="42.0" style="-fx-background-color: AliceBlue;" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                     <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font></TextField>
+                  <TextField fx:id="c22" onAction="#cellEdit" prefHeight="46.0" prefWidth="42.0" style="-fx-background-color: AliceBlue;" GridPane.columnIndex="2" GridPane.rowIndex="2">
+                     <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font></TextField>
+                  <TextField fx:id="c23" onAction="#cellEdit" prefHeight="46.0" prefWidth="42.0" GridPane.columnIndex="2" GridPane.rowIndex="3">
+                     <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font></TextField>
+                  <TextField fx:id="c24" onAction="#cellEdit" prefHeight="46.0" prefWidth="42.0" GridPane.columnIndex="2" GridPane.rowIndex="4">
+                     <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font></TextField>
+                  <TextField fx:id="c25" onAction="#cellEdit" prefHeight="46.0" prefWidth="42.0" GridPane.columnIndex="2" GridPane.rowIndex="5">
+                     <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font></TextField>
+                  <TextField fx:id="c26" onAction="#cellEdit" prefHeight="46.0" prefWidth="42.0" style="-fx-background-color: AliceBlue;" GridPane.columnIndex="2" GridPane.rowIndex="6">
+                     <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font></TextField>
+                  <TextField fx:id="c30" onAction="#cellEdit" prefHeight="46.0" prefWidth="42.0" GridPane.columnIndex="3">
+                     <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font></TextField>
+                  <TextField fx:id="c27" onAction="#cellEdit" prefHeight="46.0" prefWidth="42.0" style="-fx-background-color: AliceBlue;" GridPane.columnIndex="2" GridPane.rowIndex="7">
+                     <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font></TextField>
+                  <TextField fx:id="c28" onAction="#cellEdit" prefHeight="46.0" prefWidth="42.0" style="-fx-background-color: AliceBlue;" GridPane.columnIndex="2" GridPane.rowIndex="8">
+                     <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font></TextField>
+                  <TextField fx:id="c40" onAction="#cellEdit" prefHeight="46.0" prefWidth="42.0" GridPane.columnIndex="4">
+                     <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font></TextField>
+                  <TextField fx:id="c50" onAction="#cellEdit" prefHeight="46.0" prefWidth="42.0" GridPane.columnIndex="5">
+                     <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font></TextField>
+                  <TextField fx:id="c60" onAction="#cellEdit" prefHeight="46.0" prefWidth="42.0" style="-fx-background-color: AliceBlue;" GridPane.columnIndex="6">
+                     <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font></TextField>
+                  <TextField fx:id="c70" onAction="#cellEdit" prefHeight="46.0" prefWidth="42.0" style="-fx-background-color: AliceBlue;" GridPane.columnIndex="7">
+                     <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font></TextField>
+                  <TextField fx:id="c80" onAction="#cellEdit" prefHeight="46.0" prefWidth="42.0" style="-fx-background-color: AliceBlue;" GridPane.columnIndex="8">
+                     <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font></TextField>
+                  <TextField fx:id="c31" onAction="#cellEdit" prefHeight="46.0" prefWidth="42.0" GridPane.columnIndex="3" GridPane.rowIndex="1">
+                     <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font></TextField>
+                  <TextField fx:id="c32" onAction="#cellEdit" prefHeight="46.0" prefWidth="42.0" GridPane.columnIndex="3" GridPane.rowIndex="2">
+                     <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font></TextField>
+                  <TextField fx:id="c41" onAction="#cellEdit" prefHeight="46.0" prefWidth="42.0" GridPane.columnIndex="4" GridPane.rowIndex="1">
+                     <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font></TextField>
+                  <TextField fx:id="c42" onAction="#cellEdit" prefHeight="46.0" prefWidth="42.0" GridPane.columnIndex="4" GridPane.rowIndex="2">
+                     <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font></TextField>
+                  <TextField fx:id="c51" onAction="#cellEdit" prefHeight="46.0" prefWidth="42.0" GridPane.columnIndex="5" GridPane.rowIndex="1">
+                     <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font></TextField>
+                  <TextField fx:id="c61" onAction="#cellEdit" prefHeight="46.0" prefWidth="42.0" style="-fx-background-color: AliceBlue;" GridPane.columnIndex="6" GridPane.rowIndex="1">
+                     <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font></TextField>
+                  <TextField fx:id="c71" onAction="#cellEdit" prefHeight="46.0" prefWidth="42.0" style="-fx-background-color: AliceBlue;" GridPane.columnIndex="7" GridPane.rowIndex="1">
+                     <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font></TextField>
+                  <TextField fx:id="c81" onAction="#cellEdit" prefHeight="46.0" prefWidth="42.0" style="-fx-background-color: AliceBlue;" GridPane.columnIndex="8" GridPane.rowIndex="1">
+                     <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font></TextField>
+                  <TextField fx:id="c52" onAction="#cellEdit" prefHeight="46.0" prefWidth="42.0" GridPane.columnIndex="5" GridPane.rowIndex="2">
+                     <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font></TextField>
+                  <TextField fx:id="c62" onAction="#cellEdit" prefHeight="46.0" prefWidth="42.0" style="-fx-background-color: AliceBlue;" GridPane.columnIndex="6" GridPane.rowIndex="2">
+                     <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font></TextField>
+                  <TextField fx:id="c72" onAction="#cellEdit" prefHeight="46.0" prefWidth="42.0" style="-fx-background-color: AliceBlue;" GridPane.columnIndex="7" GridPane.rowIndex="2">
+                     <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font></TextField>
+                  <TextField fx:id="c82" onAction="#cellEdit" prefHeight="46.0" prefWidth="42.0" style="-fx-background-color: AliceBlue;" GridPane.columnIndex="8" GridPane.rowIndex="2">
+                     <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font></TextField>
+                  <TextField fx:id="c83" onAction="#cellEdit" prefHeight="46.0" prefWidth="42.0" GridPane.columnIndex="8" GridPane.rowIndex="3">
+                     <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font></TextField>
+                  <TextField fx:id="c84" onAction="#cellEdit" prefHeight="46.0" prefWidth="42.0" GridPane.columnIndex="8" GridPane.rowIndex="4">
+                     <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font></TextField>
+                  <TextField fx:id="c85" onAction="#cellEdit" prefHeight="46.0" prefWidth="42.0" GridPane.columnIndex="8" GridPane.rowIndex="5">
+                     <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font></TextField>
+                  <TextField fx:id="c86" onAction="#cellEdit" prefHeight="46.0" prefWidth="42.0" style="-fx-background-color: AliceBlue;" GridPane.columnIndex="8" GridPane.rowIndex="6">
+                     <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font></TextField>
+                  <TextField fx:id="c88" onAction="#cellEdit" prefHeight="46.0" prefWidth="42.0" style="-fx-background-color: AliceBlue;" GridPane.columnIndex="8" GridPane.rowIndex="8">
+                     <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font></TextField>
+                  <TextField fx:id="c87" onAction="#cellEdit" prefHeight="46.0" prefWidth="42.0" style="-fx-background-color: AliceBlue;" GridPane.columnIndex="8" GridPane.rowIndex="7">
+                     <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font></TextField>
+                  <TextField fx:id="c33" onAction="#cellEdit" prefHeight="46.0" prefWidth="42.0" style="-fx-background-color: AliceBlue;" GridPane.columnIndex="3" GridPane.rowIndex="3">
+                     <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font></TextField>
+                  <TextField fx:id="c34" onAction="#cellEdit" prefHeight="46.0" prefWidth="42.0" style="-fx-background-color: AliceBlue;" GridPane.columnIndex="3" GridPane.rowIndex="4">
+                     <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font></TextField>
+                  <TextField fx:id="c35" onAction="#cellEdit" prefHeight="46.0" prefWidth="42.0" style="-fx-background-color: AliceBlue;" GridPane.columnIndex="3" GridPane.rowIndex="5">
+                     <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font></TextField>
+                  <TextField fx:id="c36" onAction="#cellEdit" prefHeight="46.0" prefWidth="42.0" GridPane.columnIndex="3" GridPane.rowIndex="6">
+                     <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font></TextField>
+                  <TextField fx:id="c37" onAction="#cellEdit" prefHeight="46.0" prefWidth="42.0" GridPane.columnIndex="3" GridPane.rowIndex="7">
+                     <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font></TextField>
+                  <TextField fx:id="c38" onAction="#cellEdit" prefHeight="46.0" prefWidth="42.0" GridPane.columnIndex="3" GridPane.rowIndex="8">
+                     <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font></TextField>
+                  <TextField fx:id="c43" onAction="#cellEdit" prefHeight="46.0" prefWidth="42.0" style="-fx-background-color: AliceBlue;" GridPane.columnIndex="4" GridPane.rowIndex="3">
+                     <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font></TextField>
+                  <TextField fx:id="c53" onAction="#cellEdit" prefHeight="46.0" prefWidth="42.0" style="-fx-background-color: AliceBlue;" GridPane.columnIndex="5" GridPane.rowIndex="3">
+                     <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font></TextField>
+                  <TextField fx:id="c63" onAction="#cellEdit" prefHeight="46.0" prefWidth="42.0" GridPane.columnIndex="6" GridPane.rowIndex="3">
+                     <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font></TextField>
+                  <TextField fx:id="c73" onAction="#cellEdit" prefHeight="46.0" prefWidth="42.0" GridPane.columnIndex="7" GridPane.rowIndex="3">
+                     <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font></TextField>
+                  <TextField fx:id="c44" onAction="#cellEdit" prefHeight="46.0" prefWidth="42.0" style="-fx-background-color: AliceBlue;" GridPane.columnIndex="4" GridPane.rowIndex="4">
+                     <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font></TextField>
+                  <TextField fx:id="c45" onAction="#cellEdit" prefHeight="46.0" prefWidth="42.0" style="-fx-background-color: AliceBlue;" GridPane.columnIndex="4" GridPane.rowIndex="5">
+                     <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font></TextField>
+                  <TextField fx:id="c46" onAction="#cellEdit" prefHeight="46.0" prefWidth="42.0" GridPane.columnIndex="4" GridPane.rowIndex="6">
+                     <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font></TextField>
+                  <TextField fx:id="c47" onAction="#cellEdit" prefHeight="46.0" prefWidth="42.0" GridPane.columnIndex="4" GridPane.rowIndex="7">
+                     <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font></TextField>
+                  <TextField fx:id="c48" onAction="#cellEdit" prefHeight="46.0" prefWidth="42.0" GridPane.columnIndex="4" GridPane.rowIndex="8">
+                     <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font></TextField>
+                  <TextField fx:id="c54" onAction="#cellEdit" prefHeight="46.0" prefWidth="42.0" style="-fx-background-color: AliceBlue;" GridPane.columnIndex="5" GridPane.rowIndex="4">
+                     <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font></TextField>
+                  <TextField fx:id="c64" onAction="#cellEdit" prefHeight="46.0" prefWidth="42.0" GridPane.columnIndex="6" GridPane.rowIndex="4">
+                     <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font></TextField>
+                  <TextField fx:id="c74" onAction="#cellEdit" prefHeight="46.0" prefWidth="42.0" GridPane.columnIndex="7" GridPane.rowIndex="4">
+                     <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font></TextField>
+                  <TextField fx:id="c55" onAction="#cellEdit" prefHeight="46.0" prefWidth="42.0" style="-fx-background-color: AliceBlue;" GridPane.columnIndex="5" GridPane.rowIndex="5">
+                     <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font></TextField>
+                  <TextField fx:id="c65" onAction="#cellEdit" prefHeight="46.0" prefWidth="42.0" GridPane.columnIndex="6" GridPane.rowIndex="5">
+                     <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font></TextField>
+                  <TextField fx:id="c75" onAction="#cellEdit" prefHeight="46.0" prefWidth="42.0" GridPane.columnIndex="7" GridPane.rowIndex="5">
+                     <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font></TextField>
+                  <TextField fx:id="c56" onAction="#cellEdit" prefHeight="46.0" prefWidth="42.0" GridPane.columnIndex="5" GridPane.rowIndex="6">
+                     <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font></TextField>
+                  <TextField fx:id="c57" onAction="#cellEdit" prefHeight="46.0" prefWidth="42.0" GridPane.columnIndex="5" GridPane.rowIndex="7">
+                     <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font></TextField>
+                  <TextField fx:id="c58" onAction="#cellEdit" prefHeight="46.0" prefWidth="42.0" GridPane.columnIndex="5" GridPane.rowIndex="8">
+                     <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font></TextField>
+                  <TextField fx:id="c66" onAction="#cellEdit" prefHeight="46.0" prefWidth="42.0" style="-fx-background-color: AliceBlue;" GridPane.columnIndex="6" GridPane.rowIndex="6">
+                     <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font></TextField>
+                  <TextField fx:id="c76" onAction="#cellEdit" prefHeight="46.0" prefWidth="42.0" style="-fx-background-color: AliceBlue;" GridPane.columnIndex="7" GridPane.rowIndex="6">
+                     <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font></TextField>
+                  <TextField fx:id="c77" onAction="#cellEdit" prefHeight="46.0" prefWidth="42.0" style="-fx-background-color: AliceBlue;" GridPane.columnIndex="7" GridPane.rowIndex="7">
+                     <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font></TextField>
+                  <TextField fx:id="c67" onAction="#cellEdit" prefHeight="46.0" prefWidth="42.0" style="-fx-background-color: AliceBlue;" GridPane.columnIndex="6" GridPane.rowIndex="7">
+                     <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font></TextField>
+                  <TextField fx:id="c68" onAction="#cellEdit" prefHeight="46.0" prefWidth="42.0" style="-fx-background-color: AliceBlue;" GridPane.columnIndex="6" GridPane.rowIndex="8">
+                     <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font></TextField>
+                  <TextField fx:id="c78" onAction="#cellEdit" prefHeight="46.0" prefWidth="42.0" style="-fx-background-color: AliceBlue;" GridPane.columnIndex="7" GridPane.rowIndex="8">
+                     <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font></TextField>
+               </children>
+            </GridPane>
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>

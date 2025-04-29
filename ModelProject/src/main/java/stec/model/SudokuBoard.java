@@ -3,6 +3,7 @@ package stec.model;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
@@ -100,6 +101,24 @@ public class SudokuBoard implements Serializable, Cloneable {
     return true;
   }
 
+  public void removeCells(int toRemove) {
+      Random rand = new Random();
+      List<int[]> cells = new ArrayList<>();
+      for (int row = 0; row < 9; row++) {
+          for (int col = 0; col < 9; col++) {
+              cells.add(new int[]{row, col});
+          }
+      }
+      for (int i = 0; i < toRemove; i++) {
+          int randIndex = rand.nextInt(cells.size());
+          int[] cell = cells.get(randIndex);
+          int row = cell[0];
+          int col = cell[1];
+          board[row][col].setFieldValue(0);
+          cells.remove(randIndex);
+      }
+  }
+  
   @Override
   public boolean equals(Object obj) {
     if (this == obj) {
