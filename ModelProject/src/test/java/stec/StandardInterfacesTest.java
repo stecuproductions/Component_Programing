@@ -14,6 +14,9 @@ public class StandardInterfacesTest {
         SudokuField sudokuField = new SudokuField(3);
         SudokuField sudokuField2 = new SudokuField(4);
         assertEquals(-1, sudokuField.compareTo(sudokuField2));
+        assertThrows(NullPointerException.class, () -> {
+            sudokuField.compareTo(null);
+        });
     }
 
     @Test

@@ -91,4 +91,21 @@ public class SudokuBoardTest {
     App myApp = new App();
     myApp.main(null);
   }
+  
+  @Test
+  void removeCellsTest() {
+      SudokuSolver solver = new BacktrackingSudokuSolver();
+      SudokuBoard board = new SudokuBoard(solver);
+      board.solveGame();
+      int count = 0;
+      board.removeCells(40);
+      for (int row = 0; row < 9; row++) {
+          for (int col = 0; col < 9; col++) {
+              if (board.get(row, col) == 0) {
+                  count++;
+              }
+          }
+      }
+      assertEquals(count, 40);
+  }
 }

@@ -50,3 +50,4 @@ jacoco.exec
 *.bak
 *.tmp
 /project1/nbproject/
+/ModelProject/nbproject/
