@@ -380,6 +380,11 @@
                   <MenuItem fx:id="polish" mnemonicParsing="false" onAction="#handlePolishSelected" text="Polish" />
                </items>
             </Menu>
+            <Menu fx:id="about" mnemonicParsing="false" text="About">
+              <items>
+                <MenuItem fx:id="author" mnemonicParsing="false" onAction="#handleAbout" text="Authors" />
+              </items>
+            </Menu>
         </menus>
       </MenuBar>
    </children>

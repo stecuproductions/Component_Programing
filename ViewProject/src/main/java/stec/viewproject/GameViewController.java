@@ -143,10 +143,15 @@ public class GameViewController implements Initializable {
     private MenuItem english;
     @FXML 
     private MenuItem polish;
+    @FXML
+    private Menu about;
+    @FXML
+    private MenuItem author;
     
     private SudokuBoard unsolved;
     private SudokuBoard solved;
     private Locale currentLocale = Locale.getDefault();
+    private ResourceBundle bundle;
     
     public void setBoard(SudokuBoard unsolved, SudokuBoard solved) {
         this.unsolved = unsolved;
@@ -215,14 +220,14 @@ public class GameViewController implements Initializable {
                 if(value != solved.get(row, col)) {
                     cell.setText("");
                     Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                    alert.setTitle("Mistake");
-                    alert.setContentText("Incorrect value, please try again.");
+                    alert.setTitle(bundle.getString("alerttitle.mistake"));
+                    alert.setContentText(bundle.getString("alert.mistake"));
                     alert.showAndWait();
                 }
                 if(isBoardComplete()) {
                     Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                    alert.setTitle("Congratulations!");
-                    alert.setContentText("You solved the puzzle!");
+                    alert.setTitle(bundle.getString("alerttitle.congrats"));
+                    alert.setContentText(bundle.getString("alert.congrats"));
                     alert.showAndWait();
                 }
                 if(value == solved.get(row, col)) {
@@ -234,8 +239,8 @@ public class GameViewController implements Initializable {
             }
             else {
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setTitle("Invalid input");
-                alert.setContentText("Please enter a value between 1 and 9");
+                alert.setTitle(bundle.getString("alerttitle.invalid"));
+                alert.setContentText(bundle.getString("alert.range"));
                 alert.showAndWait();
                 cell.setText("");
                 cell.setText("");
@@ -243,8 +248,8 @@ public class GameViewController implements Initializable {
         }
         catch (NumberFormatException e) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Invalid input");
-            alert.setContentText("Please enter a valid integer.");
+            alert.setTitle(bundle.getString("alerttitle.invalid"));
+            alert.setContentText(bundle.getString("alert.integer"));
             alert.showAndWait();
             cell.setText("");
         }
@@ -271,14 +276,14 @@ public class GameViewController implements Initializable {
             try {
                 sudokuBoardDao.write(name, unsolved);
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setTitle("Success");
-                alert.setContentText("Puzzle saved successfully!");
+                alert.setTitle(bundle.getString("alerttitle.success"));
+                alert.setContentText(bundle.getString("alert.saved"));
                 alert.showAndWait();                
             }
             catch (DaoException e) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Error");
-                alert.setContentText("Failed to save the puzzle.");
+                alert.setTitle(bundle.getString("alerttitle.error"));
+                alert.setContentText(bundle.getString("alert.notsaved"));
                 alert.showAndWait();
             }
         });
@@ -289,8 +294,8 @@ public class GameViewController implements Initializable {
         List<String> puzzleNames = sudokuBoardDao.names();
          if (puzzleNames.isEmpty()) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Error");
-                alert.setContentText("No available puzzles to load");
+                alert.setTitle(bundle.getString("alerttitle.error"));
+                alert.setContentText(bundle.getString("alert.nopuzzles"));
                 alert.showAndWait();            
                 return;
         }
@@ -314,14 +319,14 @@ public class GameViewController implements Initializable {
                     temp.solveGame();
                     solved = temp;
                     Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                    alert.setTitle("Success");
-                    alert.setContentText("Puzzle loaded successfully!");
+                    alert.setTitle(bundle.getString("alerttitle.success"));
+                    alert.setContentText(bundle.getString("alert.loaded"));
                     alert.showAndWait();
                 }
                 catch (DaoException e) {
                     Alert alert = new Alert(Alert.AlertType.ERROR);
-                    alert.setTitle("Error");
-                    alert.setContentText("Failed to load the puzzle.");
+                    alert.setTitle(bundle.getString("alerttitle.error"));
+                    alert.setContentText(bundle.getString("alert."));
                     alert.showAndWait();
                 }
         });
@@ -356,7 +361,7 @@ public class GameViewController implements Initializable {
     }
 
     private void switchLanguage(Locale locale) {
-        ResourceBundle bundle = ResourceBundle.getBundle("MessageBundle", locale);
+        this.bundle = ResourceBundle.getBundle("MessageBundle", locale);
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/GameView.fxml"), bundle);
             Parent root = loader.load();
@@ -379,11 +384,26 @@ public class GameViewController implements Initializable {
         english.setText(bundle.getString("language.english"));
         polish.setText(bundle.getString("language.polish"));
         language.setText(bundle.getString("menu.language"));
+        about.setText(bundle.getString("menu.about"));
+        author.setText(bundle.getString("menu.authors"));
+
     }
     
     public void setLocale(Locale locale) {
         this.currentLocale = locale;
-        ResourceBundle bundle = ResourceBundle.getBundle("MessageBundle", locale);
+        this.bundle = ResourceBundle.getBundle("MessageBundle", locale);
         updateUI(bundle);
 }
+    
+   @FXML
+   private void handleAbout(ActionEvent event) {
+        ResourceBundle authorBundle = ResourceBundle.getBundle("stec.viewproject.Authors", currentLocale);
+        String authorText = authorBundle.getString("authors");
+        String alertTitle = authorBundle.getString("about.title");
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle(alertTitle);
+        alert.setHeaderText(null);
+        alert.setContentText(authorText);
+        alert.showAndWait();
+    }
 }

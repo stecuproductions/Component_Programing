@@ -58,6 +58,10 @@ public class MainViewController implements Initializable {
     private Text text1;
     @FXML
     private Text text2;
+    @FXML
+    private Menu about;
+    @FXML
+    private MenuItem author;
     
     private Locale currentLocale = new Locale("en");
     
@@ -163,6 +167,9 @@ public class MainViewController implements Initializable {
         languageMenu.setText(bundle.getString("menu.language"));
         text1.setText(bundle.getString("start.text1"));
         text2.setText(bundle.getString("start.text2"));
+        about.setText(bundle.getString("menu.about"));
+        author.setText(bundle.getString("menu.authors"));
+
     }
 
     private void setLocale(Locale locale) {
@@ -170,5 +177,18 @@ public class MainViewController implements Initializable {
         ResourceBundle bundle = ResourceBundle.getBundle("MessageBundle", locale);
         updateUI(bundle);
     }
+    
+   @FXML
+   private void handleAbout(ActionEvent event) {
+        ResourceBundle authorBundle = ResourceBundle.getBundle("stec.viewproject.Authors", currentLocale);
+        String authorText = authorBundle.getString("authors");
+        String alertTitle = authorBundle.getString("about.title");
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle(alertTitle);
+        alert.setHeaderText(null);
+        alert.setContentText(authorText);
+        alert.showAndWait();
+    }
+    
     
 }
