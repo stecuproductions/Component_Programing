@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="438.0" prefWidth="603.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="stec.viewproject.GameViewController">
+<AnchorPane id="AnchorPane" fx:id="rootPane" prefHeight="438.0" prefWidth="603.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="stec.viewproject.GameViewController">
    <children>
       <AnchorPane layoutY="26.0" prefHeight="412.0" prefWidth="603.0">
          <children>
@@ -368,12 +368,18 @@
       </AnchorPane>
       <MenuBar layoutX="-1.0" layoutY="1.0" prefHeight="26.0" prefWidth="603.0">
         <menus>
-          <Menu mnemonicParsing="false" text="File">
+          <Menu fx:id="file" mnemonicParsing="false" text="File">
             <items>
-              <MenuItem mnemonicParsing="false" onAction="#handleSavePuzzle" text="Save Puzzle" />
-                  <MenuItem mnemonicParsing="false" onAction="#handleLoadPuzzle" text="Load Puzzle" />
+              <MenuItem fx:id="saveFile" mnemonicParsing="false" onAction="#handleSavePuzzle" text="Save Puzzle" />
+                  <MenuItem fx:id="loadFile" mnemonicParsing="false" onAction="#handleLoadPuzzle" text="Load Puzzle" />
             </items>
           </Menu>
+            <Menu fx:id="language" mnemonicParsing="false" text="Language">
+               <items>
+                  <MenuItem fx:id="english" mnemonicParsing="false" onAction="#handleEnglishSelected" text="English" />
+                  <MenuItem fx:id="polish" mnemonicParsing="false" onAction="#handlePolishSelected" text="Polish" />
+               </items>
+            </Menu>
         </menus>
       </MenuBar>
    </children>

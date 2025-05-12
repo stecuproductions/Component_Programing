@@ -59,6 +59,8 @@ public class MainViewController implements Initializable {
     @FXML
     private Text text2;
     
+    private Locale currentLocale = new Locale("en");
+    
     @FXML
     private void handleEnglishSelected(ActionEvent event) {
         switchLanguage(new Locale("en"));
@@ -79,6 +81,9 @@ public class MainViewController implements Initializable {
                 case "easy" -> Difficulty.EASY;
                 case "medium" -> Difficulty.MEDIUM;
                 case "hard" -> Difficulty.HARD;
+                case "łatwy" -> Difficulty.EASY;
+                case "średni" -> Difficulty.MEDIUM;
+                case "trudny" -> Difficulty.HARD;                    
                 default -> throw new IllegalStateException("Uknown level");
             };
             try {
@@ -89,10 +94,12 @@ public class MainViewController implements Initializable {
                 SudokuBoard board = prototype.clone();
                 board.removeCells(difficulty.getToRemove());
                 
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/GameView.fxml"));
+                ResourceBundle bundle = ResourceBundle.getBundle("MessageBundle", currentLocale);
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/GameView.fxml"), bundle);
                 Parent gameRoot = loader.load();
                 GameViewController controller = loader.getController();
                 controller.setBoard(board, solvedBoard);
+                controller.setLocale(currentLocale);
                 
                 Stage stage = (Stage) startButton.getScene().getWindow();
                 stage.setScene(new Scene(gameRoot));
@@ -126,8 +133,7 @@ public class MainViewController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         easyButton.setSelected(true);
-        Locale.setDefault(new Locale("en"));
-        ResourceBundle bundle = ResourceBundle.getBundle("MessageBundle", Locale.getDefault());
+        ResourceBundle bundle = ResourceBundle.getBundle("MessageBundle", currentLocale);
         updateUI(bundle);
     }    
 
@@ -137,7 +143,7 @@ public class MainViewController implements Initializable {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/MainView.fxml"), bundle);
             Parent root = loader.load();
             MainViewController controller = loader.getController();
-            controller.updateUI(bundle);
+            controller.setLocale(locale);
             Stage stage = (Stage) rootPane.getScene().getWindow();
             stage.setTitle(bundle.getString("app.title"));
             stage.setScene(new Scene(root));
@@ -147,7 +153,7 @@ public class MainViewController implements Initializable {
         }
     }
 
-    private void updateUI(ResourceBundle bundle) {
+    void updateUI(ResourceBundle bundle) {
         startButton.setText(bundle.getString("menu.newGame"));
         easyButton.setText(bundle.getString("menu.easy"));
         mediumButton.setText(bundle.getString("menu.medium"));
@@ -157,6 +163,12 @@ public class MainViewController implements Initializable {
         languageMenu.setText(bundle.getString("menu.language"));
         text1.setText(bundle.getString("start.text1"));
         text2.setText(bundle.getString("start.text2"));
+    }
+
+    private void setLocale(Locale locale) {
+        this.currentLocale = locale;
+        ResourceBundle bundle = ResourceBundle.getBundle("MessageBundle", locale);
+        updateUI(bundle);
     }
     
 }

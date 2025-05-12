@@ -5,8 +5,10 @@ package stec.viewproject;
  * Click nbfs://nbhost/SystemFileSystem/Templates/javafx/FXMLController.java to edit this template
  */
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.List;
+import java.util.Locale;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import javafx.beans.binding.Bindings;
@@ -14,12 +16,19 @@ import javafx.beans.property.adapter.JavaBeanIntegerProperty;
 import javafx.beans.property.adapter.JavaBeanIntegerPropertyBuilder;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ChoiceDialog;
+import javafx.scene.control.Menu;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextFormatter;
 import javafx.scene.control.TextInputDialog;
+import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 import stec.dao.Dao;
 import stec.dao.DaoException;
 import stec.dao.SudokuBoardDaoFactory;
@@ -120,9 +129,24 @@ public class GameViewController implements Initializable {
     @FXML private TextField c87;
     @FXML private TextField c88;
 
+    @FXML
+    private AnchorPane rootPane;
+    @FXML
+    private Menu language;
+    @FXML
+    private Menu file;
+    @FXML
+    private MenuItem loadFile;
+    @FXML
+    private MenuItem saveFile;
+    @FXML
+    private MenuItem english;
+    @FXML 
+    private MenuItem polish;
     
     private SudokuBoard unsolved;
     private SudokuBoard solved;
+    private Locale currentLocale = Locale.getDefault();
     
     public void setBoard(SudokuBoard unsolved, SudokuBoard solved) {
         this.unsolved = unsolved;
@@ -135,6 +159,12 @@ public class GameViewController implements Initializable {
             for(int col = 0; col < 9; col++) {
                 int field = unsolved.get(row, col);
                 TextField cell = cells[row][col];
+                                    
+                String currentStyle = cell.getStyle();
+                cell.setStyle(currentStyle + "-fx-text-fill: black;");
+                cell.setTextFormatter(null);
+                cell.setText("");
+
                 try {
                     SudokuField sudokuField = unsolved.getField(row, col);
                     JavaBeanIntegerProperty prop = JavaBeanIntegerPropertyBuilder.create()
@@ -315,4 +345,45 @@ public class GameViewController implements Initializable {
         sudokuBoardDao = new SudokuBoardDaoFactory("C:\\Users\\jroga\\Desktop\\studia\\IV\\CP\\puzzles").getFileDao();
     }    
     
+    @FXML
+    private void handleEnglishSelected(ActionEvent event) {
+        switchLanguage(new Locale("en"));
+    }
+    
+    @FXML
+    private void handlePolishSelected(ActionEvent event) {
+        switchLanguage(new Locale("pl", "PL"));
+    }
+
+    private void switchLanguage(Locale locale) {
+        ResourceBundle bundle = ResourceBundle.getBundle("MessageBundle", locale);
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/GameView.fxml"), bundle);
+            Parent root = loader.load();
+            GameViewController controller = loader.getController();
+            controller.setBoard(unsolved, solved);
+            controller.setLocale(locale);
+            Stage stage = (Stage) rootPane.getScene().getWindow();
+            stage.setTitle(bundle.getString("app.title"));
+            stage.setScene(new Scene(root));
+        }
+        catch (IOException e) {
+            System.out.println("cant change the language");
+        }        
+    }
+    
+    private void updateUI(ResourceBundle bundle) {
+        file.setText(bundle.getString("label.file"));
+        saveFile.setText(bundle.getString("label.save"));
+        loadFile.setText(bundle.getString("label.load"));
+        english.setText(bundle.getString("language.english"));
+        polish.setText(bundle.getString("language.polish"));
+        language.setText(bundle.getString("menu.language"));
+    }
+    
+    public void setLocale(Locale locale) {
+        this.currentLocale = locale;
+        ResourceBundle bundle = ResourceBundle.getBundle("MessageBundle", locale);
+        updateUI(bundle);
+}
 }
