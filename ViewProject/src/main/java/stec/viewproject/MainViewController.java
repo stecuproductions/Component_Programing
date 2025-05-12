@@ -6,7 +6,9 @@ package stec.viewproject;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Locale;
 import java.util.ResourceBundle;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -14,9 +16,13 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.Menu;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.Toggle;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import stec.model.Difficulty;
@@ -40,6 +46,28 @@ public class MainViewController implements Initializable {
     private Button startButton;
     @FXML
     private ToggleGroup level;
+    @FXML
+    private AnchorPane rootPane;
+    @FXML
+    private MenuItem english;
+    @FXML
+    private MenuItem polish;
+    @FXML
+    private Menu languageMenu;
+    @FXML
+    private Text text1;
+    @FXML
+    private Text text2;
+    
+    @FXML
+    private void handleEnglishSelected(ActionEvent event) {
+        switchLanguage(new Locale("en"));
+    }
+    
+    @FXML
+    private void handlePolishSelected(ActionEvent event) {
+        switchLanguage(new Locale("pl", "PL"));
+    }
     
     @FXML
     private void StartClick() {
@@ -98,6 +126,37 @@ public class MainViewController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         easyButton.setSelected(true);
+        Locale.setDefault(new Locale("en"));
+        ResourceBundle bundle = ResourceBundle.getBundle("MessageBundle", Locale.getDefault());
+        updateUI(bundle);
     }    
+
+    private void switchLanguage(Locale locale) {
+        ResourceBundle bundle = ResourceBundle.getBundle("MessageBundle", locale);
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/MainView.fxml"), bundle);
+            Parent root = loader.load();
+            MainViewController controller = loader.getController();
+            controller.updateUI(bundle);
+            Stage stage = (Stage) rootPane.getScene().getWindow();
+            stage.setTitle(bundle.getString("app.title"));
+            stage.setScene(new Scene(root));
+        }
+        catch (IOException e) {
+            System.out.println("cant change the language");
+        }
+    }
+
+    private void updateUI(ResourceBundle bundle) {
+        startButton.setText(bundle.getString("menu.newGame"));
+        easyButton.setText(bundle.getString("menu.easy"));
+        mediumButton.setText(bundle.getString("menu.medium"));
+        hardButton.setText(bundle.getString("menu.hard"));
+        english.setText(bundle.getString("language.english"));
+        polish.setText(bundle.getString("language.polish"));
+        languageMenu.setText(bundle.getString("menu.language"));
+        text1.setText(bundle.getString("start.text1"));
+        text2.setText(bundle.getString("start.text2"));
+    }
     
 }

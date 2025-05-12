@@ -34,6 +34,11 @@ public class BacktrackingSudokuSolver implements SudokuSolver, Serializable {
 
     int newRow = (col == 8) ? row + 1 : row;
     int newCol = (col == 8) ? 0 : col + 1;
+    
+    if (board.get(row, col) != 0) {
+        solve(board, newRow, newCol);
+        return;
+    }
 
     List<Integer> numbers = generateRandomNumbers();
 

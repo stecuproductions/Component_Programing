@@ -2,6 +2,9 @@
 
 <?import javafx.scene.control.Accordion?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -10,7 +13,7 @@
 <?import javafx.scene.text.Text?>
 <?import javafx.scene.text.TextFlow?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="stec.viewproject.MainViewController">
+<AnchorPane id="AnchorPane" fx:id="rootPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="stec.viewproject.MainViewController">
    <children>
       <Accordion layoutX="78.0" layoutY="48.0" />
       <Pane prefHeight="400.0" prefWidth="600.0">
@@ -18,7 +21,7 @@
             <TextFlow layoutX="121.0" layoutY="55.0" prefHeight="34.0" prefWidth="358.0">
                <children>
                   <Text strokeType="OUTSIDE" strokeWidth="0.0" />
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="START NEW SUDOKU GAME" textAlignment="CENTER" wrappingWidth="375.837890625">
+                  <Text fx:id="text1" strokeType="OUTSIDE" strokeWidth="0.0" text="START NEW SUDOKU GAME" textAlignment="CENTER" wrappingWidth="375.837890625">
                      <font>
                         <Font name="Calibri" size="31.0" />
                      </font>
@@ -28,14 +31,14 @@
             </TextFlow>
             <TextFlow layoutX="173.0" layoutY="89.0" prefHeight="24.0" prefWidth="255.0">
                <children>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="CHOOSE YOUR DIFFICULTY LEVEL" textAlignment="CENTER">
+                  <Text fx:id="text2" strokeType="OUTSIDE" strokeWidth="0.0" text="CHOOSE YOUR DIFFICULTY LEVEL" textAlignment="CENTER">
                      <font>
                         <Font size="17.0" />
                      </font>
                   </Text>
                </children>
             </TextFlow>
-            <RadioButton fx:id="mediumButton" layoutX="234.0" layoutY="185.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="108.0" text="Medium">
+            <RadioButton fx:id="mediumButton" layoutX="234.0" layoutY="185.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="108.0" text="\%menu.medium">
                <font>
                   <Font size="17.0" />
                </font>
@@ -43,21 +46,31 @@
                   <ToggleGroup fx:id="level" />
                </toggleGroup>
             </RadioButton>
-            <RadioButton fx:id="hardButton" layoutX="234.0" layoutY="224.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="82.0" text="Hard" toggleGroup="$level">
+            <RadioButton fx:id="hardButton" layoutX="234.0" layoutY="224.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="108.0" text="\%menu.hard" toggleGroup="$level">
                <font>
                   <Font size="17.0" />
                </font>
             </RadioButton>
-            <RadioButton fx:id="easyButton" layoutX="234.0" layoutY="145.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="108.0" selected="true" text="Easy" toggleGroup="$level">
+            <RadioButton fx:id="easyButton" layoutX="234.0" layoutY="145.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="108.0" selected="true" text="\%menu.easy" toggleGroup="$level">
                <font>
                   <Font size="17.0" />
                </font>
             </RadioButton>
-            <Button fx:id="startButton" layoutX="177.0" layoutY="285.0" mnemonicParsing="false" onAction="#StartClick" prefHeight="62.0" prefWidth="246.0" style="-fx-background-color: red;" text="START" textAlignment="CENTER">
+            <Button fx:id="startButton" layoutX="177.0" layoutY="285.0" mnemonicParsing="false" onAction="#StartClick" prefHeight="62.0" prefWidth="246.0" style="-fx-background-color: red;" text="\%menu.newGame" textAlignment="CENTER">
                <font>
                   <Font size="32.0" />
                </font>
             </Button>
+            <MenuBar layoutY="2.0" prefHeight="21.0" prefWidth="600.0">
+              <menus>
+                <Menu fx:id="languageMenu" mnemonicParsing="false" text="\%menu.language">
+                  <items>
+                    <MenuItem fx:id="english" mnemonicParsing="false" onAction="#handleEnglishSelected" text="\%language.english" />
+                        <MenuItem fx:id="polish" mnemonicParsing="false" onAction="#handlePolishSelected" text="\%language.polish" />
+                  </items>
+                </Menu>
+              </menus>
+            </MenuBar>
          </children>
       </Pane>
    </children>

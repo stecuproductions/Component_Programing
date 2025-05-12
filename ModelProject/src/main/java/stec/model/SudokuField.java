@@ -25,7 +25,7 @@ public class SudokuField implements Serializable, Comparable<SudokuField>, Clone
     int oldVal = this.getFieldValue();
     int newVal = value;
     this.value = newVal;
-    support.firePropertyChange("value", oldVal, newVal);
+    support.firePropertyChange("fieldValue", oldVal, newVal);
   }
 
   public void addPropertyChangeListener(PropertyChangeListener listener) {
@@ -36,6 +36,12 @@ public class SudokuField implements Serializable, Comparable<SudokuField>, Clone
   // public void removePropertyChangeListener(PropertyChangeListener listener) {
   //      support.removePropertyChangeListener(listener);
   // }
+  
+  private void readObject(java.io.ObjectInputStream in) throws java.io.IOException, ClassNotFoundException {
+    in.defaultReadObject();
+    support = new PropertyChangeSupport(this);
+}
+  
   @Override
   public int compareTo(SudokuField o) {
     if (o == null) {

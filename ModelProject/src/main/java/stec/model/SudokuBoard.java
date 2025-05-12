@@ -91,6 +91,10 @@ public class SudokuBoard implements Serializable, Cloneable {
   public int get(int row, int col) {
     return board[row][col].getFieldValue();
   }
+  
+  public SudokuField getField(int row, int col) {
+      return board[row][col];
+  }
 
   private boolean checkBoard() {
     for (int i = 0; i < 9; i++) {

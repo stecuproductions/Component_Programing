@@ -6,14 +6,28 @@ package stec.viewproject;
  */
 
 import java.net.URL;
+import java.util.List;
+import java.util.Optional;
 import java.util.ResourceBundle;
+import javafx.beans.binding.Bindings;
+import javafx.beans.property.adapter.JavaBeanIntegerProperty;
+import javafx.beans.property.adapter.JavaBeanIntegerPropertyBuilder;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
+import javafx.scene.control.ChoiceDialog;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TextFormatter;
+import javafx.scene.control.TextInputDialog;
+import stec.dao.Dao;
+import stec.dao.DaoException;
+import stec.dao.SudokuBoardDaoFactory;
 
 import stec.model.SudokuBoard;
+import stec.model.SudokuField;
+import stec.solver.BacktrackingSudokuSolver;
+import stec.solver.SudokuSolver;
 
 /**
  * FXML Controller class
@@ -21,6 +35,7 @@ import stec.model.SudokuBoard;
  * @author jroga
  */
 public class GameViewController implements Initializable {
+    private Dao<SudokuBoard> sudokuBoardDao;
     @FXML
     private TextField[][] cells;
     @FXML private TextField c00;
@@ -120,13 +135,26 @@ public class GameViewController implements Initializable {
             for(int col = 0; col < 9; col++) {
                 int field = unsolved.get(row, col);
                 TextField cell = cells[row][col];
-                if(field == 0) {
-                    cell.setText("");
-                    cell.setEditable(true);
+                try {
+                    SudokuField sudokuField = unsolved.getField(row, col);
+                    JavaBeanIntegerProperty prop = JavaBeanIntegerPropertyBuilder.create()
+                            .bean(sudokuField)
+                            .name("fieldValue")
+                            .build();
+                    TextFormatter<Integer> formatter = new TextFormatter<>(
+                            new SudokuFieldConverter(),
+                            sudokuField.getFieldValue(),
+                            change -> {
+                                String newText = change.getControlNewText();
+                                return newText.matches("[1-9]?") ? change : null;
+                            }
+                    );
+                    Bindings.bindBidirectional(formatter.valueProperty(), prop.asObject());
+                    cell.setTextFormatter(formatter);
+                    cell.setEditable(sudokuField.getFieldValue() == 0);
                 }
-                else {
-                    cell.setText(String.valueOf(field));
-                    cell.setEditable(false);
+                catch (NoSuchMethodException e) {
+                    System.out.println("no such method");
                 }
             }
         }
@@ -202,6 +230,72 @@ public class GameViewController implements Initializable {
         }
         return true;
     }
+    
+    @FXML
+    private void handleSavePuzzle(ActionEvent event) {
+        TextInputDialog dialog = new TextInputDialog();
+        dialog.setTitle("Save puzzle");
+        dialog.setHeaderText("Enter a name for the puzzle file:");
+        Optional<String> result = dialog.showAndWait();
+        result.ifPresent(name -> {
+            try {
+                sudokuBoardDao.write(name, unsolved);
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Success");
+                alert.setContentText("Puzzle saved successfully!");
+                alert.showAndWait();                
+            }
+            catch (DaoException e) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error");
+                alert.setContentText("Failed to save the puzzle.");
+                alert.showAndWait();
+            }
+        });
+    }
+    
+    @FXML
+    private void handleLoadPuzzle(ActionEvent event) {
+        List<String> puzzleNames = sudokuBoardDao.names();
+         if (puzzleNames.isEmpty()) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error");
+                alert.setContentText("No available puzzles to load");
+                alert.showAndWait();            
+                return;
+        }
+        ChoiceDialog<String> dialog = new ChoiceDialog<>(puzzleNames.get(0), puzzleNames);
+        dialog.setTitle("Load Puzzle");
+        dialog.setHeaderText("Choose a puzzle to load:");
+        
+        Optional<String> result = dialog.showAndWait();
+        result.ifPresent(name -> {
+                try {
+                    SudokuSolver solver = new BacktrackingSudokuSolver();
+                    SudokuBoard loaded = sudokuBoardDao.read(name);
+                    unsolved = loaded;
+                    updateBoardView();
+                    SudokuBoard temp = new SudokuBoard(solver);
+                    for(int row = 0; row < 9; row++) {
+                        for(int col = 0; col < 9; col++) {
+                            temp.set(row,col,loaded.get(row, col));
+                        }
+                    }
+                    temp.solveGame();
+                    solved = temp;
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setTitle("Success");
+                    alert.setContentText("Puzzle loaded successfully!");
+                    alert.showAndWait();
+                }
+                catch (DaoException e) {
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle("Error");
+                    alert.setContentText("Failed to load the puzzle.");
+                    alert.showAndWait();
+                }
+        });
+    }
     /**
      * Initializes the controller class.
      */
@@ -218,6 +312,7 @@ public class GameViewController implements Initializable {
         { c70, c71, c72, c73, c74, c75, c76, c77, c78 },
         { c80, c81, c82, c83, c84, c85, c86, c87, c88 }
     };
+        sudokuBoardDao = new SudokuBoardDaoFactory("C:\\Users\\jroga\\Desktop\\studia\\IV\\CP\\puzzles").getFileDao();
     }    
     
 }
