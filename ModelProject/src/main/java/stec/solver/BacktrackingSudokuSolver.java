@@ -10,6 +10,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import stec.model.SudokuBoard;
 
 /**
@@ -19,15 +22,17 @@ import stec.model.SudokuBoard;
  * @author jstec
  */
 public class BacktrackingSudokuSolver implements SudokuSolver, Serializable {
+  private static final Logger logger = LoggerFactory.getLogger(BacktrackingSudokuSolver.class.getName());
   private boolean solved = false;
-
   @Override
   public void solve(SudokuBoard board, int row, int col) {
     if (solved) {
+      logger.debug("Board already solved, returning");
       return;
     }
 
     if (row == 9) {
+      logger.info("Sudoku board successfully solved");
       solved = true;
       return;
     }

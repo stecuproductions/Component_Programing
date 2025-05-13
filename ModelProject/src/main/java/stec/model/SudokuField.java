@@ -7,9 +7,12 @@ import java.io.Serializable;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class SudokuField implements Serializable, Comparable<SudokuField>, Cloneable {
-  private  transient PropertyChangeSupport support;
+  private static final Logger logger = LoggerFactory.getLogger(SudokuField.class.getName());
+  private transient PropertyChangeSupport support;
   private int value;
 
   public SudokuField(int value) {
@@ -20,10 +23,10 @@ public class SudokuField implements Serializable, Comparable<SudokuField>, Clone
   public int getFieldValue() {
     return value;
   }
-
   public void setFieldValue(int value) {
     int oldVal = this.getFieldValue();
     int newVal = value;
+    logger.debug("Changing field value from {} to {}", oldVal, newVal);
     this.value = newVal;
     support.firePropertyChange("fieldValue", oldVal, newVal);
   }

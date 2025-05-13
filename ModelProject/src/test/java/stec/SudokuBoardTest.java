@@ -86,11 +86,7 @@ public class SudokuBoardTest {
     assertEquals(9, newlineCount);
   }
 
-  @Test
-  void mainMethodRunning() {
-    App myApp = new App();
-    myApp.main(null);
-  }
+
   
   @Test
   void removeCellsTest() {

@@ -1,5 +1,8 @@
 package stec.model;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.beans.PropertyChangeListener;
 import java.io.Serializable;
 import java.util.List;
@@ -7,6 +10,7 @@ import java.util.List;
 public abstract class SudokuComponent implements PropertyChangeListener, Serializable, Cloneable {
   protected List<SudokuField> sudokuFields;
   public boolean notified = false;
+  private Logger logger = LoggerFactory.getLogger(SudokuComponent.class.getName());
 
   public SudokuComponent(List<SudokuField> fields) {
     this.sudokuFields = fields;
@@ -37,6 +41,7 @@ public abstract class SudokuComponent implements PropertyChangeListener, Seriali
     // int oldValue = (int) evt.getOldValue();
     // boolean isValid = verify();
     notified = true;
+
     // String validationMessage = (isValid
     //   ?  "Does not violate " : "Violates ") + this.getClass().getSimpleName() + " rules";
     // System.out.println("Field value changed! Old value:  " + oldValue

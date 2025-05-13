@@ -6,12 +6,15 @@ import java.util.List;
 import java.util.Random;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import stec.solver.SudokuSolver;
 
 
 
 public class SudokuBoard implements Serializable, Cloneable {
+  private static final Logger logger = LoggerFactory.getLogger(SudokuBoard.class.getName());
   private SudokuField[][] board;
   private List<SudokuRow> rows;
   private List<SudokuColumn> columns;
@@ -55,9 +58,10 @@ public class SudokuBoard implements Serializable, Cloneable {
       }
     }
   }
-
   public void solveGame() {
+    logger.info("Starting to solve sudoku game");
     sudokuSolver.solve(this, 0, 0);
+    logger.info("Sudoku game solved");
   }
 
   public String drawSudoku() {
@@ -104,8 +108,8 @@ public class SudokuBoard implements Serializable, Cloneable {
     }
     return true;
   }
-
   public void removeCells(int toRemove) {
+      logger.info("Removing {} cells from the board", toRemove);
       Random rand = new Random();
       List<int[]> cells = new ArrayList<>();
       for (int row = 0; row < 9; row++) {

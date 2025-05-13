@@ -8,6 +8,10 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.Locale;
 import java.util.ResourceBundle;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -24,7 +28,6 @@ import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-
 import stec.model.Difficulty;
 import stec.model.SudokuBoard;
 import stec.solver.BacktrackingSudokuSolver;
@@ -36,6 +39,8 @@ import stec.solver.SudokuSolver;
  * @author jroga
  */
 public class MainViewController implements Initializable {
+    private static final Logger logger = LoggerFactory.getLogger(MainViewController.class);
+    
     @FXML
     private RadioButton easyButton;
     @FXML
@@ -74,13 +79,14 @@ public class MainViewController implements Initializable {
     private void handlePolishSelected(ActionEvent event) {
         switchLanguage(new Locale("pl", "PL"));
     }
-    
-    @FXML
+      @FXML
     private void StartClick() {
+        logger.info("Start button clicked");
         Toggle selected = level.getSelectedToggle();
         if(selected != null) {
             RadioButton selectedLvl = (RadioButton) selected;
             String lvlText = selectedLvl.getText();
+            logger.debug("Selected difficulty level: {}", lvlText);
             Difficulty difficulty = switch(lvlText.toLowerCase()) {
                 case "easy" -> Difficulty.EASY;
                 case "medium" -> Difficulty.MEDIUM;
@@ -106,25 +112,26 @@ public class MainViewController implements Initializable {
                 controller.setLocale(currentLocale);
                 
                 Stage stage = (Stage) startButton.getScene().getWindow();
-                stage.setScene(new Scene(gameRoot));
-                stage.show();
+                stage.setScene(new Scene(gameRoot));                stage.show();
+                logger.info("Game view initialized and displayed");
             }
             catch (CloneNotSupportedException e) {
+                logger.error("Clone error while starting game", e);
                 e.printStackTrace();
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Error");
                 alert.setContentText("Something went wrong while starting the game.");
                 alert.showAndWait();
-            }
-            catch (IOException e) {
+            }            catch (IOException e) {
+                logger.error("IO error while loading game view", e);
                 e.printStackTrace();
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Error");
                 alert.setContentText("Unable to load the game view");
                 alert.showAndWait();
             }
-        }
-        else {
+        }        else {
+            logger.warn("No difficulty level selected");
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("Warning");
             alert.setContentText("Please select a difficulty level before starting.");
@@ -133,13 +140,14 @@ public class MainViewController implements Initializable {
     }
     /**
      * Initializes the controller class.
-     */
-    @Override
+     */    @Override
     public void initialize(URL url, ResourceBundle rb) {
+        logger.info("Initializing MainViewController");
         easyButton.setSelected(true);
         ResourceBundle bundle = ResourceBundle.getBundle("MessageBundle", currentLocale);
         updateUI(bundle);
-    }    
+        logger.debug("MainViewController initialized with locale: {}", currentLocale);
+    }
 
     private void switchLanguage(Locale locale) {
         ResourceBundle bundle = ResourceBundle.getBundle("MessageBundle", locale);
@@ -153,7 +161,7 @@ public class MainViewController implements Initializable {
             stage.setScene(new Scene(root));
         }
         catch (IOException e) {
-            System.out.println("cant change the language");
+            logger.error("Failed to change language", e);
         }
     }
 

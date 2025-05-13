@@ -11,6 +11,7 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 
 import stec.dao.*;
+import stec.exceptions.SudokuDaoException;
 import stec.model.SudokuBoard;
 import stec.solver.BacktrackingSudokuSolver;
 import stec.solver.SudokuSolver;
@@ -47,7 +48,7 @@ public class DaoTests {
   }
 
   @Test
-  void namesTest() throws DaoException {
+  void namesTest() throws SudokuDaoException {
     SudokuBoardDaoFactory factory = new SudokuBoardDaoFactory("testFactoryDir");
     Dao<SudokuBoard> dao = factory.getFileDao();
     SudokuSolver solver = new BacktrackingSudokuSolver();
@@ -81,13 +82,13 @@ public class DaoTests {
   }
 
   @Test
-  void readTestShouldThrowDaoException() throws DaoException {
+  void readTestShouldThrowDaoException() throws SudokuDaoException {
     FileSudokuBoardDao dao = new FileSudokuBoardDao("ValidDir");
-    assertThrows(DaoException.class, () -> dao.read("fakeDir"));
+    assertThrows(SudokuDaoException.class, () -> dao.read("fakeDir"));
   }
 
   @Test
-  void writeTestShouldThrowDaoException() throws DaoException, Exception {
+  void writeTestShouldThrowDaoException() throws SudokuDaoException, Exception {
     FileSudokuBoardDao dao = new FileSudokuBoardDao("ValidDir");
     Path fakeDir = Path.of("notADir");
     Files.deleteIfExists(fakeDir);
@@ -98,7 +99,7 @@ public class DaoTests {
     SudokuSolver solver = new BacktrackingSudokuSolver();
     SudokuBoard board = new SudokuBoard(solver);
     board.solveGame();
-    assertThrows(DaoException.class, () -> dao.write("board1", board));
+    assertThrows(SudokuDaoException.class, () -> dao.write("board1", board));
     Files.deleteIfExists(fakeDir);
   }
 

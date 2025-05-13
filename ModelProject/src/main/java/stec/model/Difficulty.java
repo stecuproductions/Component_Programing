@@ -5,16 +5,21 @@
 
 package stec.model;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 /**
  * Enum representing the different difficulty levels for the sudoku game.
  * @author jroga
  */
 public enum Difficulty {
     EASY(30), MEDIUM(35), HARD(40);
-    
+    private  final Logger logger = LoggerFactory.getLogger(Difficulty.class);
+
     private int toRemove;
     
     Difficulty(int toRemove) {
+        logger.info("Difficulty set");
         this.toRemove = toRemove;
     }
     
