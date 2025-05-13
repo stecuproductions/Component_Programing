@@ -5,6 +5,7 @@ import org.slf4j.LoggerFactory;
 
 import stec.model.SudokuBoard;
 
+
 public class SudokuBoardDaoFactory {
 
   private static final Logger log = LoggerFactory.getLogger(SudokuBoardDaoFactory.class);

@@ -1,14 +1,25 @@
 package stec.dao;
 
-import stec.exceptions.SudokuDaoException;
-
 import java.util.List;
 
-public interface Dao<T> {
+import stec.exceptions.SudokuDaoNamesException;
+import stec.exceptions.SudokuDaoReadException;
+import stec.exceptions.SudokuDaoWriteException;
 
-  T read(String name) throws SudokuDaoException;
 
-  void write(String name, T obj) throws SudokuDaoException;
+public interface Dao<T> extends AutoCloseable {
 
-  List<String> names();
+
+
+  T read(String name) throws SudokuDaoReadException;
+
+
+  void write(String name, T obj) throws SudokuDaoWriteException;
+
+
+
+  List<String> names() throws SudokuDaoNamesException;
+  
+  @Override
+  void close();
 }

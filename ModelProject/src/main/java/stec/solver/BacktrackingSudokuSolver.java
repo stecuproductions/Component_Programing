@@ -24,6 +24,7 @@ import stec.model.SudokuBoard;
 public class BacktrackingSudokuSolver implements SudokuSolver, Serializable {
   private static final Logger logger = LoggerFactory.getLogger(BacktrackingSudokuSolver.class.getName());
   private boolean solved = false;
+
   @Override
   public void solve(SudokuBoard board, int row, int col) {
     if (solved) {

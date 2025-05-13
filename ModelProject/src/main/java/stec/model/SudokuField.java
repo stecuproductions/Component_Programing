@@ -23,6 +23,7 @@ public class SudokuField implements Serializable, Comparable<SudokuField>, Clone
   public int getFieldValue() {
     return value;
   }
+
   public void setFieldValue(int value) {
     int oldVal = this.getFieldValue();
     int newVal = value;

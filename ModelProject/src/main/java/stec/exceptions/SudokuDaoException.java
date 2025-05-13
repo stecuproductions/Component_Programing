@@ -1,7 +1,14 @@
 package stec.exceptions;
 
+
 public class SudokuDaoException extends SudokuException {
-  public SudokuDaoException(String msg, Throwable cause) {
-    super(msg, cause);
+  
+
+  public SudokuDaoException(String messageKey) {
+    super(messageKey);
+  }
+
+  public SudokuDaoException(String messageKey, Throwable cause) {
+    super(messageKey, cause);
   }
 }

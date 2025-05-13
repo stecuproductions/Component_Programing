@@ -58,6 +58,7 @@ public class SudokuBoard implements Serializable, Cloneable {
       }
     }
   }
+
   public void solveGame() {
     logger.info("Starting to solve sudoku game");
     sudokuSolver.solve(this, 0, 0);
@@ -108,6 +109,7 @@ public class SudokuBoard implements Serializable, Cloneable {
     }
     return true;
   }
+
   public void removeCells(int toRemove) {
       logger.info("Removing {} cells from the board", toRemove);
       Random rand = new Random();
@@ -159,24 +161,27 @@ public class SudokuBoard implements Serializable, Cloneable {
   }
 
   @Override
-  public SudokuBoard clone() throws CloneNotSupportedException  {
-      SudokuBoard clone = (SudokuBoard) super.clone();
-      clone.board = new SudokuField[9][9];
-      for (int i = 0; i < 9; i++) {
-        for (int j = 0; j < 9; j++) {
-          clone.board[i][j] = (SudokuField) this.board[i][j].clone();
-        }
+  public SudokuBoard clone() {
+      try {
+          SudokuBoard clone = (SudokuBoard) super.clone();
+          clone.board = new SudokuField[9][9];
+          for (int i = 0; i < 9; i++) {
+            for (int j = 0; j < 9; j++) {
+              clone.board[i][j] = (SudokuField) this.board[i][j].clone();
+            }
+          }
+          clone.rows = new ArrayList<>(9);
+          clone.columns = new ArrayList<>(9);
+          clone.boxes = new ArrayList<>(9);
+          for (int i = 0; i < 9; i++) {
+            clone.rows.add((SudokuRow) this.rows.get(i).clone());
+            clone.columns.add((SudokuColumn) this.columns.get(i).clone());
+            clone.boxes.add((SudokuBox) this.boxes.get(i).clone());
+          }
+          clone.sudokuSolver = null; // can be changed over time
+          return clone;
+      } catch (CloneNotSupportedException e) {
+          throw new stec.exceptions.SudokuCloneException("sudoku.exception.clone", e);
       }
-      clone.rows = new ArrayList<>(9);
-      clone.columns = new ArrayList<>(9);
-      clone.boxes = new ArrayList<>(9);
-      for (int i = 0; i < 9; i++) {
-        clone.rows.add((SudokuRow) this.rows.get(i).clone());
-        clone.columns.add((SudokuColumn) this.columns.get(i).clone());
-        clone.boxes.add((SudokuBox) this.boxes.get(i).clone());
-      }
-      clone.sudokuSolver = null; // can be changed over time
-      return (SudokuBoard) clone;
-
   }
 }

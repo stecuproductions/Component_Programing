@@ -1,11 +1,14 @@
 package stec.model;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import java.beans.PropertyChangeListener;
 import java.io.Serializable;
 import java.util.List;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import stec.exceptions.SudokuCloneException;
+
 
 public abstract class SudokuComponent implements PropertyChangeListener, Serializable, Cloneable {
   protected List<SudokuField> sudokuFields;
@@ -50,7 +53,11 @@ public abstract class SudokuComponent implements PropertyChangeListener, Seriali
   }
 
   @Override
-  public Object clone() throws CloneNotSupportedException {
-    return super.clone();
+  public Object clone() throws SudokuCloneException {
+    try {
+      return super.clone();
+    } catch (CloneNotSupportedException e) {
+      throw new SudokuCloneException("sudoku.exception.clone", e);
+    }
   }
 }
