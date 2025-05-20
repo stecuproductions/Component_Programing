@@ -56,7 +56,7 @@
                   <Font size="17.0" />
                </font>
             </RadioButton>
-            <Button fx:id="startButton" layoutX="177.0" layoutY="285.0" mnemonicParsing="false" onAction="#StartClick" prefHeight="62.0" prefWidth="246.0" style="-fx-background-color: red;" text="\%menu.newGame" textAlignment="CENTER">
+            <Button fx:id="startButton" layoutX="177.0" layoutY="285.0" mnemonicParsing="false" onAction="#startClick" prefHeight="62.0" prefWidth="246.0" style="-fx-background-color: red;" text="\%menu.newGame" textAlignment="CENTER">
                <font>
                   <Font size="32.0" />
                </font>

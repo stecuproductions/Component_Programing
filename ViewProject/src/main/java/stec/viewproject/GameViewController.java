@@ -4,7 +4,6 @@ package stec.viewproject;
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/javafx/FXMLController.java to edit this template
  */
-
 import java.io.IOException;
 import java.net.URL;
 import java.nio.file.Path;
@@ -35,7 +34,6 @@ import javafx.scene.control.TextFormatter;
 import javafx.scene.control.TextInputDialog;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-
 import stec.dao.Dao;
 import stec.dao.SudokuBoardDaoFactory;
 import stec.exceptions.SudokuDaoException;
@@ -44,12 +42,10 @@ import stec.model.SudokuField;
 import stec.solver.BacktrackingSudokuSolver;
 import stec.solver.SudokuSolver;
 
-/**
- * FXML Controller class
- *
- * @author jroga
- */
-public class GameViewController implements Initializable {
+
+
+
+public class GameViewController implements Initializable, AutoCloseable {
     private static final Logger logger = LoggerFactory.getLogger(GameViewController.class);
     private Dao<SudokuBoard> sudokuBoardDao;
     @FXML
@@ -159,16 +155,18 @@ public class GameViewController implements Initializable {
     private SudokuBoard solved;
     private Locale currentLocale = Locale.getDefault();
     private ResourceBundle bundle;
-      public void setBoard(SudokuBoard unsolved, SudokuBoard solved) {
+
+    public void setBoard(SudokuBoard unsolved, SudokuBoard solved) {
         logger.info("Setting game boards");
         this.unsolved = unsolved;
         this.solved = solved;
         updateBoardView();
     }
+
       private void updateBoardView() {
         logger.debug("Updating board view");
-        for(int row = 0; row < 9; row++) {
-            for(int col = 0; col < 9; col++) {
+        for (int row = 0; row < 9; row++) {
+            for (int col = 0; col < 9; col++) {
                 int field = unsolved.get(row, col);
                 TextField cell = cells[row][col];
                                     
@@ -194,21 +192,21 @@ public class GameViewController implements Initializable {
                     Bindings.bindBidirectional(formatter.valueProperty(), prop.asObject());
                     cell.setTextFormatter(formatter);
                     cell.setEditable(sudokuField.getFieldValue() == 0);
-                }
-                catch (NoSuchMethodException e) {
+                } catch (NoSuchMethodException e) {
                     logger.error("No such method", e);
                 }
             }
         }
     }
-      @FXML
+
+    @FXML
     private void cellEdit(ActionEvent event) {
         logger.debug("Cell edited");
         TextField cell = (TextField) event.getSource();
         int row = -1;
         int col = -1;
         outer:
-        for(int i = 0; i < 9; i++) {
+        for (int i = 0; i < 9; i++) {
             for (int j = 0; j < 9; j++) {
                 if (cells[i][j] == cell) {
                     row = i;
@@ -220,12 +218,13 @@ public class GameViewController implements Initializable {
         }
         if (row == -1 || col == -1) {
             return;
-        }        String text = cell.getText();
+        }
+        String text = cell.getText();
         try {
             int value = Integer.parseInt(text);
             logger.debug("Validating value {} at position [{},{}]", value, row, col);
-            if(value >= 1 && value <=9) {
-                if(value != solved.get(row, col)) {
+            if (value >= 1 && value <= 9) {
+                if (value != solved.get(row, col)) {
                     logger.info("Incorrect value {} entered at position [{},{}], correct value is {}", 
                         value, row, col, solved.get(row, col));
                     cell.setText("");
@@ -234,12 +233,14 @@ public class GameViewController implements Initializable {
                     alert.setContentText(bundle.getString("alert.mistake"));
                     alert.showAndWait();
                 }
-                if(isBoardComplete()) {
+
+                if (isBoardComplete()) {
                     Alert alert = new Alert(Alert.AlertType.INFORMATION);
                     alert.setTitle(bundle.getString("alerttitle.congrats"));
                     alert.setContentText(bundle.getString("alert.congrats"));
                     alert.showAndWait();
-                }                if(value == solved.get(row, col)) {
+                }
+                if (value == solved.get(row, col)) {
                     logger.debug("Correct value {} entered at position [{},{}]", value, row, col);
                     unsolved.set(row, col, value);
                     String currentStyle = cell.getStyle();
@@ -264,11 +265,12 @@ public class GameViewController implements Initializable {
             cell.setText("");
         }
     }
+
       private boolean isBoardComplete() {
         logger.debug("Checking if board is complete");
-        for(int row = 0; row < 9; row++) {
-            for(int col = 0; col < 9; col++) {
-                if(unsolved.get(row, col) != solved.get(row, col)) {
+        for (int row = 0; row < 9; row++) {
+            for (int col = 0; col < 9; col++) {
+                if (unsolved.get(row, col) != solved.get(row, col)) {
                     logger.debug("Board is not complete, mismatch at position [{},{}]", row, col);
                     return false;
                 }
@@ -277,7 +279,8 @@ public class GameViewController implements Initializable {
         logger.info("Board successfully completed");
         return true;
     }
-      @FXML
+
+    @FXML
     private void handleSavePuzzle(ActionEvent event) {
         logger.info("Save puzzle dialog opened");
         TextInputDialog dialog = new TextInputDialog();
@@ -293,29 +296,40 @@ public class GameViewController implements Initializable {
                 alert.setContentText(bundle.getString("alert.saved"));
                 alert.showAndWait();
                 logger.debug("Puzzle saved successfully");                
-            }
-            catch (SudokuDaoException e) {
-                logger.error("Error saving puzzle", e);
+            }            catch (SudokuDaoException e) {
+                logger.error("Error saving puzzle: {}", e.getLocalizedMessage(), e);
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle(bundle.getString("alerttitle.error"));
-                alert.setContentText(bundle.getString("alert.notsaved"));
+                alert.setContentText(e.getLocalizedMessage(currentLocale));
                 alert.showAndWait();
             }
         });
     }
-
-      @FXML
+    @FXML
     private void handleLoadPuzzle(ActionEvent event) {
         logger.info("Load puzzle dialog opened");
-        List<String> puzzleNames = sudokuBoardDao.names();
-        logger.debug("Available puzzles: {}", puzzleNames);
-         if (puzzleNames.isEmpty()) {
+        
+        // Use try-with-resources to ensure DAO operations are properly closed
+        List<String> puzzleNames;
+        try {
+            puzzleNames = sudokuBoardDao.names();
+            logger.debug("Available puzzles: {}", puzzleNames);
+            
+            if (puzzleNames.isEmpty()) {
                 logger.warn("No puzzles found to load");
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle(bundle.getString("alerttitle.error"));
                 alert.setContentText(bundle.getString("alert.nopuzzles"));
                 alert.showAndWait();            
                 return;
+            }
+        } catch (SudokuDaoException e) {
+            logger.error("Error listing puzzles: {}", e.getLocalizedMessage(), e);
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle(bundle.getString("alerttitle.error"));
+            alert.setContentText(e.getLocalizedMessage(currentLocale));
+            alert.showAndWait();
+            return;
         }
         ChoiceDialog<String> dialog = new ChoiceDialog<>(puzzleNames.get(0), puzzleNames);
         dialog.setTitle("Load Puzzle");
@@ -329,8 +343,8 @@ public class GameViewController implements Initializable {
                     unsolved = loaded;
                     updateBoardView();
                     SudokuBoard temp = new SudokuBoard(solver);
-                    for(int row = 0; row < 9; row++) {
-                        for(int col = 0; col < 9; col++) {
+                    for (int row = 0; row < 9; row++) {
+                        for (int col = 0; col < 9; col++) {
                             temp.set(row,col,loaded.get(row, col));
                         }
                     }
@@ -343,17 +357,19 @@ public class GameViewController implements Initializable {
                     alert.showAndWait();
                     logger.debug("Puzzle loaded successfully");
                 }                catch (SudokuDaoException e) {
-                    logger.error("Error loading puzzle", e);
+                    logger.error("Error loading puzzle: {}", e.getLocalizedMessage(), e);
                     Alert alert = new Alert(Alert.AlertType.ERROR);
                     alert.setTitle(bundle.getString("alerttitle.error"));
-                    alert.setContentText(bundle.getString("alert."));
+                    alert.setContentText(e.getLocalizedMessage(currentLocale));
                     alert.showAndWait();
                 }
         });
     }
     /**
      * Initializes the controller class.
-     */    @Override
+     */
+
+    @Override
     public void initialize(URL url, ResourceBundle rb) {
         logger.info("Initializing GameViewController");
         cells = new TextField[][] {
@@ -366,10 +382,10 @@ public class GameViewController implements Initializable {
         { c60, c61, c62, c63, c64, c65, c66, c67, c68 },
         { c70, c71, c72, c73, c74, c75, c76, c77, c78 },
         { c80, c81, c82, c83, c84, c85, c86, c87, c88 }
-    };        Path puzzlesDir = Paths.get("puzzles");
+    };
+        Path puzzlesDir = Paths.get("puzzles");
         logger.debug("Setting up DAO with puzzles directory: {}", puzzlesDir);
-        sudokuBoardDao = new SudokuBoardDaoFactory(puzzlesDir.toString())
-                .getFileDao();
+        sudokuBoardDao = new SudokuBoardDaoFactory().getDatabaseDao();
         logger.debug("GameViewController initialized");
     }
     
@@ -377,29 +393,45 @@ public class GameViewController implements Initializable {
     private void handleEnglishSelected(ActionEvent event) {
         switchLanguage(new Locale("en"));
     }
-    
-    @FXML
+      @FXML
     private void handlePolishSelected(ActionEvent event) {
         switchLanguage(new Locale("pl", "PL"));
-    }    private void switchLanguage(Locale locale) {
+    }
+    
+    /**
+     * Closes resources when controller is no longer needed.
+     */
+    @Override
+    public void close() {
+        if (sudokuBoardDao != null) {
+            try {
+                sudokuBoardDao.close();
+                logger.debug("DAO resources closed successfully");
+            } catch (Exception e) {
+                logger.error("Error closing DAO resources", e);
+            }
+        }
+    }
+
+    private void switchLanguage(Locale locale) {
         logger.info("Switching language to: {}", locale);
         this.bundle = ResourceBundle.getBundle("MessageBundle", locale);
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/GameView.fxml"), bundle);
+            Stage stage = (Stage) rootPane.getScene().getWindow();
             Parent root = loader.load();
+            stage.setScene(new Scene(root));
             GameViewController controller = loader.getController();
             controller.setBoard(unsolved, solved);
             controller.setLocale(locale);
-            Stage stage = (Stage) rootPane.getScene().getWindow();
             stage.setTitle(bundle.getString("app.title"));
-            stage.setScene(new Scene(root));
             logger.debug("Language switched successfully");
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             logger.error("Failed to change language", e);
         }
     }
-      private void updateUI(ResourceBundle bundle) {
+
+    private void updateUI(ResourceBundle bundle) {
         logger.debug("Updating UI with locale: {}", currentLocale);
         file.setText(bundle.getString("label.file"));
         saveFile.setText(bundle.getString("label.save"));

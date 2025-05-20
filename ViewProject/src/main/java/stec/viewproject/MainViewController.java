@@ -28,6 +28,8 @@ import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import stec.exceptions.SudokuException;
+import stec.exceptions.SudokuIllegalLevelException;
 import stec.model.Difficulty;
 import stec.model.SudokuBoard;
 import stec.solver.BacktrackingSudokuSolver;
@@ -79,22 +81,22 @@ public class MainViewController implements Initializable {
     private void handlePolishSelected(ActionEvent event) {
         switchLanguage(new Locale("pl", "PL"));
     }
-      @FXML
-    private void StartClick() {
+
+    @FXML
+    private void startClick() {
         logger.info("Start button clicked");
         Toggle selected = level.getSelectedToggle();
-        if(selected != null) {
+        if (selected != null) {
             RadioButton selectedLvl = (RadioButton) selected;
             String lvlText = selectedLvl.getText();
             logger.debug("Selected difficulty level: {}", lvlText);
             Difficulty difficulty = switch(lvlText.toLowerCase()) {
                 case "easy" -> Difficulty.EASY;
                 case "medium" -> Difficulty.MEDIUM;
-                case "hard" -> Difficulty.HARD;
-                case "łatwy" -> Difficulty.EASY;
+                case "hard" -> Difficulty.HARD;                case "łatwy" -> Difficulty.EASY;
                 case "średni" -> Difficulty.MEDIUM;
                 case "trudny" -> Difficulty.HARD;                    
-                default -> throw new IllegalStateException("Uknown level");
+                default -> throw new SudokuIllegalLevelException("sudoku.exception.illegalLevel");
             };
             try {
                 SudokuSolver solver = new BacktrackingSudokuSolver();
@@ -103,24 +105,35 @@ public class MainViewController implements Initializable {
                 SudokuBoard solvedBoard = prototype.clone();
                 SudokuBoard board = prototype.clone();
                 board.removeCells(difficulty.getToRemove());
-                
-                ResourceBundle bundle = ResourceBundle.getBundle("MessageBundle", currentLocale);
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/GameView.fxml"), bundle);
+
+                ResourceBundle bundle = ResourceBundle.getBundle("MessageBundle", currentLocale);                FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/GameView.fxml"), bundle);
                 Parent gameRoot = loader.load();
                 GameViewController controller = loader.getController();
                 controller.setBoard(board, solvedBoard);
                 controller.setLocale(currentLocale);
                 
-                Stage stage = (Stage) startButton.getScene().getWindow();
-                stage.setScene(new Scene(gameRoot));                stage.show();
-                logger.info("Game view initialized and displayed");
-            }
-            catch (CloneNotSupportedException e) {
-                logger.error("Clone error while starting game", e);
-                e.printStackTrace();
+                Stage stage = (Stage) startButton.getScene().getWindow();                // Add window close request handler to ensure resources are closed
+                stage.setOnCloseRequest(windowEvent -> {
+                    logger.info("Window closing, releasing resources");
+                    try {
+                        controller.close();
+                    } catch (Exception e) {
+                        logger.error("Error while closing controller resources", e);
+                    }
+                });
+                
+                stage.setScene(new Scene(gameRoot));
+                stage.show();
+                logger.info("Game view initialized and displayed");} catch (SudokuException e) {
+                logger.error("Error while starting game: {}", e.getLocalizedMessage(), e);
                 Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Error");
-                alert.setContentText("Something went wrong while starting the game.");
+                ResourceBundle bundle = ResourceBundle.getBundle("MessageBundle", currentLocale);
+                alert.setTitle(bundle.getString("alerttitle.error"));
+                alert.setHeaderText(null);
+                alert.setContentText(e.getLocalizedMessage(currentLocale));
+                alert.showAndWait();
+                alert.setTitle(bundle.getString("alerttitle.error"));
+                alert.setContentText(e.getLocalizedMessage(currentLocale));
                 alert.showAndWait();
             }            catch (IOException e) {
                 logger.error("IO error while loading game view", e);
@@ -138,9 +151,8 @@ public class MainViewController implements Initializable {
             alert.showAndWait();
         }
     }
-    /**
-     * Initializes the controller class.
-     */    @Override
+
+    @Override
     public void initialize(URL url, ResourceBundle rb) {
         logger.info("Initializing MainViewController");
         easyButton.setSelected(true);
@@ -159,8 +171,7 @@ public class MainViewController implements Initializable {
             Stage stage = (Stage) rootPane.getScene().getWindow();
             stage.setTitle(bundle.getString("app.title"));
             stage.setScene(new Scene(root));
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             logger.error("Failed to change language", e);
         }
     }

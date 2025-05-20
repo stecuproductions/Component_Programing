@@ -51,3 +51,4 @@ jacoco.exec
 *.tmp
 /project1/nbproject/
 /ModelProject/nbproject/
+*.env

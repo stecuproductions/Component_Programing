@@ -34,7 +34,11 @@ public class ViewProject extends Application {
     }
 
     public static void main(String[] args) {
-        logger.debug("app working");
-        launch(args);
+        try {
+            logger.debug("app working");
+            launch(args);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

@@ -8,10 +8,6 @@ package stec.viewproject;
 
 import java.util.ListResourceBundle;
 
-/**
- *
- * @author jroga
- */
 public class Authors_en extends ListResourceBundle {
 
     @Override
